@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="Essentials-2.x-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../API/Essentials-2.x-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/Essentials-2.x-SNAPSHOT.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

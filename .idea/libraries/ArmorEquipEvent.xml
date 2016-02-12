@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="ArmorEquipEvent">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../API/ArmorEquipEvent.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ArmorEquipEvent.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
