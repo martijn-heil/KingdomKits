@@ -18,31 +18,40 @@ All sub commands below are sub command of the command */kingdomkits* (Alias: */k
 
 #### Permissions:
 ````
-    kingdomkits.*:
-        description: Gives access to all kingdomkits permissions & commands.
-        children:
-            kingdomkits.bind: true
-            kingdomkits.setclass: true
-            kingdomkits.getclass: true
-            kingdomkits.getclass.others: true
-            kingdomkits.reload: true
-            kingdomkits.bypass.factionmembershipchangeevent: true
-    kingdomkits.bypass.*:
-        description: Gives access to all kingdomkits bypass permissions.
-        children:
-            kingdomkits.bypass.factionmembershipchangeevent: true
-    kingdomkits.bind:
-        default: op
-    kingdomkits.setclass:
-        default: op
-    kingdomkits.setclass.others:
-        default: op
-    kingdomkits.getclass:
-        default: true
-    kingdomkits.getclass.others:
-        default: true
-    kingdomkits.bypass.factionmembershipchangeevent:
-        default: op
+        kingdomkits.*:
+            description: Gives access to all kingdomkits permissions & commands.
+            children:
+                kingdomkits.bind: true
+                kingdomkits.setclass: true
+                kingdomkits.setclass.class.*: true
+                kingdomkits.setclass.others: true
+                kingdomkits.getclass: true
+                kingdomkits.getclass.others: true
+                kingdomkits.list: true
+                kingdomkits.bypass.factionmembershipchangeevent: true
+        kingdomkits.bypass.*:
+            description: Gives access to all kingdomkits bypass permissions.
+            children:
+                kingdomkits.bypass.factionmembershipchangeevent: true
+                kingdomkits.bypass.changeclasscooldown: true
+        kingdomkits.bind:
+            default: op
+        kingdomkits.list:
+            default: true
+        kingdomkits.setclass:
+            default: op
+        kingdomkits.setclass.class.*:
+            default: op
+        kingdomkits.setclass.others:
+            default: op
+        kingdomkits.getclass:
+            default: true
+        kingdomkits.getclass.others:
+            default: true
+        kingdomkits.bypass.factionmembershipchangeevent:
+            default: op
+        kingdomkits.bypass.changeclasscooldown:
+            default: op
 ````
 
 #### Dependencies:
