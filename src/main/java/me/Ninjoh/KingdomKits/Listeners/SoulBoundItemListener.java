@@ -1,7 +1,7 @@
 package me.Ninjoh.KingdomKits.Listeners;
 
 import ca.thederpygolems.armorequip.ArmorEquipEvent;
-import me.Ninjoh.KingdomKits.Library.Util.HelperMethods;
+import me.Ninjoh.KingdomKits.Library.Util.ItemStackUtils;
 import me.Ninjoh.KingdomKits.Library.Entity.COnlinePlayer;
 import me.Ninjoh.KingdomKits.Main;
 import me.Ninjoh.NinCore.Library.Entity.NinOnlinePlayer;
@@ -31,14 +31,14 @@ public class SoulBoundItemListener implements Listener
     public static FileConfiguration config = Main.config;
     //public static FileConfiguration data = Main.data;
 
-    public HelperMethods helperMethods = new HelperMethods();
+    public ItemStackUtils helperMethods = new ItemStackUtils();
 
 
     @EventHandler(priority = EventPriority.HIGHEST) // If player tries to drop a soulbound item..
     public void onPlayerDropItem(PlayerDropItemEvent e)
     {
         // If dropped item is soulbound, cancel the event.
-        if (HelperMethods.isSoulBound(e.getItemDrop().getItemStack()))
+        if (ItemStackUtils.isSoulBound(e.getItemDrop().getItemStack()))
         {
             e.setCancelled(true);
 
@@ -56,7 +56,7 @@ public class SoulBoundItemListener implements Listener
     @EventHandler(priority = EventPriority.HIGHEST) // If player tries to put a soulbound piece of armor on an armor stand..
     public void onPlayerArmorStandManipulate(PlayerArmorStandManipulateEvent e)
     {
-        if (HelperMethods.isSoulBound(e.getPlayerItem()))
+        if (ItemStackUtils.isSoulBound(e.getPlayerItem()))
         {
             e.setCancelled(true);
 
@@ -72,7 +72,7 @@ public class SoulBoundItemListener implements Listener
     @EventHandler(priority = EventPriority.HIGHEST) // If player tries to put a soulbound item in an item frame..
     public void onPlayerInteractEntity(PlayerInteractEntityEvent e)
     {
-        if (e.getRightClicked().getType().equals(EntityType.ITEM_FRAME) && HelperMethods.isSoulBound(e.getPlayer().getItemInHand()))
+        if (e.getRightClicked().getType().equals(EntityType.ITEM_FRAME) && ItemStackUtils.isSoulBound(e.getPlayer().getItemInHand()))
         {
             e.setCancelled(true);
 
@@ -100,7 +100,7 @@ public class SoulBoundItemListener implements Listener
                 // The item is being shift clicked from the bottom to the top
                 ItemStack clickedOn = e.getCurrentItem();
 
-                if (clickedOn != null && (HelperMethods.isSoulBound(clickedOn)))
+                if (clickedOn != null && (ItemStackUtils.isSoulBound(clickedOn)))
                 {
                     e.setCancelled(true);
 
@@ -121,7 +121,7 @@ public class SoulBoundItemListener implements Listener
             // The cursor item is going into the top inventory
             ItemStack onCursor = e.getCursor();
 
-            if (onCursor != null && (HelperMethods.isSoulBound(onCursor)))
+            if (onCursor != null && (ItemStackUtils.isSoulBound(onCursor)))
             {
                 e.setCancelled(true);
 
@@ -151,7 +151,7 @@ public class SoulBoundItemListener implements Listener
     {
         ItemStack dragged = e.getOldCursor(); // This is the item that is being dragged
 
-        if (HelperMethods.isSoulBound(dragged))
+        if (ItemStackUtils.isSoulBound(dragged))
         {
             int inventorySize = e.getInventory().getSize(); // The size of the inventory, for reference
 
@@ -178,7 +178,7 @@ public class SoulBoundItemListener implements Listener
     public void onPlayerItemDamage(PlayerItemDamageEvent e)
     {
         // Soulbound items cannot be damaged
-        if (HelperMethods.isSoulBound(e.getItem()) && config.getBoolean("soulbound.soulboundItemsCannotBeDamaged"))
+        if (ItemStackUtils.isSoulBound(e.getItem()) && config.getBoolean("soulbound.soulboundItemsCannotBeDamaged"))
         {
             e.setCancelled(true);
             e.getPlayer().updateInventory();
@@ -208,7 +208,7 @@ public class SoulBoundItemListener implements Listener
         while (i.hasNext())
         {
             ItemStack item = i.next();
-            if (HelperMethods.isSoulBound(item))
+            if (ItemStackUtils.isSoulBound(item))
                 i.remove();
         }
     }
@@ -220,7 +220,7 @@ public class SoulBoundItemListener implements Listener
     public void onArmorEquip(ArmorEquipEvent e)
     {
         if (e.getNewArmorPiece() != null &&
-                !HelperMethods.isSoulBound(e.getNewArmorPiece()) &&
+                !ItemStackUtils.isSoulBound(e.getNewArmorPiece()) &&
                 !e.getNewArmorPiece().getType().equals(Material.AIR) &&
                 (!e.getMethod().equals(ArmorEquipEvent.EquipMethod.DEATH) ||
                 !e.getMethod().equals(ArmorEquipEvent.EquipMethod.BROKE)))
@@ -255,7 +255,7 @@ public class SoulBoundItemListener implements Listener
 
 
             if (player.getItemInHand() != null && weapons.contains(player.getItemInHand().getType()) &&
-                    !HelperMethods.isSoulBound(player.getItemInHand()))
+                    !ItemStackUtils.isSoulBound(player.getItemInHand()))
             {
                 e.setCancelled(true);
 
@@ -284,7 +284,7 @@ public class SoulBoundItemListener implements Listener
 
 
             if (player.getItemInHand() != null && weapons.contains(player.getItemInHand().getType()) &&
-                    !HelperMethods.isSoulBound(player.getItemInHand()))
+                    !ItemStackUtils.isSoulBound(player.getItemInHand()))
             {
                 e.setCancelled(true);
 
@@ -303,7 +303,7 @@ public class SoulBoundItemListener implements Listener
     {
         if (config.getBoolean("soulbound.preventNonSoulboundWeaponUsage") &&
                 e.getEntity() instanceof Player &&
-                !HelperMethods.isSoulBound(e.getBow()))
+                !ItemStackUtils.isSoulBound(e.getBow()))
         {
             Player player = (Player) e.getEntity();
 

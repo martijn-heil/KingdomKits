@@ -7,6 +7,7 @@ import me.Ninjoh.KingdomKits.Listeners.*;
 import me.Ninjoh.KingdomKits.Commands.KingdomKitsCmd;
 import me.Ninjoh.NinCore.Library.Entity.Command;
 import me.Ninjoh.NinCore.Library.Entity.SubCommand;
+import me.Ninjoh.NinCore.NinCore;
 import net.mcapi.uuid.ServerRegion;
 import net.mcapi.uuid.UUIDAPI;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -40,6 +41,17 @@ public class Main extends JavaPlugin
         plugin = this;
         config = this.getConfig();
 
+        NinCore.setUseLocalization(config.getBoolean("useLocalization"));
+
+        if(config.getBoolean("useLocalization"))
+        {
+            plugin.getLogger().info("Localization is enabled.");
+        }
+        else
+        {
+            plugin.getLogger().info("Localization is disabled.");
+        }
+
 
         DateTimeZone.setDefault(DateTimeZone.UTC);
 
@@ -71,15 +83,6 @@ public class Main extends JavaPlugin
 
         // Schedule automatic data file saving.
         dataManager.scheduleAutomaticDataFileSave(Tick.valueOf(config.getLong("dataFileSaveInterval")));
-
-        // If language file doesn't exist, create it
-//        if(!dataManager.langFileExists())
-//        {
-//            dataManager.createLangFile();
-//        }
-//
-//        // Load language file
-//        lang = dataManager.loadLangFile();
 
 
         // Register events
@@ -170,7 +173,5 @@ public class Main extends JavaPlugin
     {
         // Save the data & lang file
         dataManager.saveDataFile();
-
-        //dataManager.saveLangFile(lang);
     }
 }

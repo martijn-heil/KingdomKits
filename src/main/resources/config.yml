@@ -11,6 +11,9 @@ configVersion: 3
 # Default value is set to 6000 ticks, wich is 5 minutes exact.
 dataFileSaveInterval: 6000
 
+# Should localization be used?
+useLocalization: true
+
 # Enable integration with factions?
 # This is for the maxpercentage stuff with player classes.
 # If set to false faction integration will be disabled, and the maxpercentage stuff

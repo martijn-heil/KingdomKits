@@ -1,10 +1,10 @@
 package me.Ninjoh.KingdomKits.Commands.SubCommands;
 
 
-import me.Ninjoh.KingdomKits.Library.Exceptions.AccessDeniedException;
-import me.Ninjoh.KingdomKits.Library.Exceptions.InvalidCommandSenderException;
+import me.Ninjoh.NinCore.Library.Exceptions.AccessDeniedException;
+import me.Ninjoh.NinCore.Library.Exceptions.InvalidCommandSenderException;
 import me.Ninjoh.KingdomKits.Library.Exceptions.ItemAlreadySoulboundException;
-import me.Ninjoh.KingdomKits.Library.Util.HelperMethods;
+import me.Ninjoh.KingdomKits.Library.Util.ItemStackUtils;
 import me.Ninjoh.NinCore.Library.Entity.Command;
 import me.Ninjoh.NinCore.Library.Entity.SubCommand;
 import me.Ninjoh.NinCore.Library.Interfaces.SubCommandExecutor;
@@ -40,7 +40,7 @@ public class KingdomKitsBindCmd implements SubCommandExecutor
                     }
 
                     // Check if item isn't already soulbound
-                    if (HelperMethods.isSoulBound(p.getItemInHand()))
+                    if (ItemStackUtils.isSoulBound(p.getItemInHand()))
                     {
                         throw new ItemAlreadySoulboundException(sender);
                     }

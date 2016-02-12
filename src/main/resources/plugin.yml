@@ -1,5 +1,5 @@
 name: KingdomKits
-version: 4.1.0
+version: 5.0.0
 author: Ninjoh
 main: me.Ninjoh.KingdomKits.Main
 depend: [ArmorEquipEvent,Essentials]

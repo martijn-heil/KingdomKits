@@ -2,9 +2,9 @@ package me.Ninjoh.KingdomKits.Commands.SubCommands;
 
 
 import me.Ninjoh.KingdomKits.Library.Entity.*;
-import me.Ninjoh.KingdomKits.Library.Exceptions.AccessDeniedException;
-import me.Ninjoh.KingdomKits.Library.Exceptions.PlayerNotFoundException;
-import me.Ninjoh.KingdomKits.Library.Exceptions.TooManyArgumentsException;
+import me.Ninjoh.NinCore.Library.Exceptions.AccessDeniedException;
+import me.Ninjoh.NinCore.Library.Exceptions.PlayerNotFoundException;
+import me.Ninjoh.NinCore.Library.Exceptions.TooManyArgumentsException;
 import me.Ninjoh.KingdomKits.Main;
 import me.Ninjoh.NinCore.Library.Entity.Command;
 import me.Ninjoh.NinCore.Library.Entity.SubCommand;

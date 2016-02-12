@@ -3,7 +3,7 @@ package me.Ninjoh.KingdomKits.Library.Util;
 import org.bukkit.inventory.ItemStack;
 
 
-public class HelperMethods
+public class ItemStackUtils
 {
     /**
      * Check if an item is soulbound.
