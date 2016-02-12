@@ -1,6 +1,6 @@
 # IntelliJ project files
-#.idea
-.idea/workspace.xml
+.idea
+*.iml
 .idea/tasks.xml
 out
 gen
