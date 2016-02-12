@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Factions">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/Factions.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/Factions.jar!/" />
+    </SOURCES>
+  </library>
+</component>
