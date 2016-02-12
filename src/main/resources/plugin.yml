@@ -1,0 +1,50 @@
+name: KingdomKits
+version: 4.1.0
+author: Ninjoh
+main: me.Ninjoh.KingdomKits.Main
+depend: [ArmorEquipEvent,Essentials]
+softdepend: [Factions,MassiveCore]
+commands:
+   kingdomkits:
+      aliases: [kk]
+      description: The main command for this plugin.
+      usage: /<command>
+permissions:
+    kingdomkits.*:
+        description: Gives access to all kingdomkits permissions & commands.
+        children:
+            kingdomkits.bind: true
+            kingdomkits.setclass: true
+            kingdomkits.setclass.class.*: true
+            kingdomkits.setclass.others: true
+            kingdomkits.getclass: true
+            kingdomkits.getclass.others: true
+            kingdomkits.list: true
+#            kingdomkits.reload: true
+            kingdomkits.bypass.factionmembershipchangeevent: true
+    kingdomkits.bypass.*:
+        description: Gives access to all kingdomkits bypass permissions.
+        children:
+            kingdomkits.bypass.factionmembershipchangeevent: true
+            kingdomkits.bypass.changeclasscooldown: true
+    kingdomkits.bind:
+        default: op
+    kingdomkits.list:
+        default: true
+    kingdomkits.setclass:
+        default: op
+    kingdomkits.setclass.class.*:
+        default: op
+    kingdomkits.setclass.others:
+        default: op
+    kingdomkits.getclass:
+        default: true
+    kingdomkits.getclass.others:
+        default: true
+    kingdomkits.bypass.factionmembershipchangeevent:
+        default: op
+    kingdomkits.bypass.changeclasscooldown:
+        default: op
+#    kingdomkits.reload:
+#        Description: The permission for the reload sub-command
+#        default: op
