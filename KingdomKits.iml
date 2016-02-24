@@ -33,9 +33,9 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.bukkit:bukkit:1.8.8-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: joda-time:joda-time:2.9.2" level="project" />
     <orderEntry type="library" name="NinCore" level="project" />
-    <orderEntry type="library" name="MassiveCore" level="project" />
-    <orderEntry type="library" name="Factions" level="project" />
-    <orderEntry type="library" name="Essentials-2.x-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="ArmorEquipEvent" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="MassiveCore" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Factions" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Essentials-2.x-SNAPSHOT" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="ArmorEquipEvent" level="project" />
   </component>
 </module>

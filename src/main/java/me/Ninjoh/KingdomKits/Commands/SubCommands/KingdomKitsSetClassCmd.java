@@ -5,7 +5,7 @@ import me.Ninjoh.KingdomKits.Library.Entity.*;
 import me.Ninjoh.KingdomKits.Library.Exceptions.CoolDownHasNotExpiredException;
 import me.Ninjoh.KingdomKits.Library.Exceptions.PlayerCannotBecomeClassException;
 import me.Ninjoh.NinCore.Library.Exceptions.*;
-import me.Ninjoh.KingdomKits.Library.Exceptions.ClassNotFoundException;
+import me.Ninjoh.KingdomKits.Library.Exceptions.PlayerClassNotFoundException;
 import me.Ninjoh.KingdomKits.Main;
 import me.Ninjoh.NinCore.Library.Entity.Command;
 import me.Ninjoh.NinCore.Library.Entity.SubCommand;
@@ -76,7 +76,7 @@ public class KingdomKitsSetClassCmd implements SubCommandExecutor
                 // Class validation
                 if(!PlayerClass.PlayerClassExists(className))
                 {
-                    throw new ClassNotFoundException(sender);
+                    throw new PlayerClassNotFoundException(sender);
                 }
 
 
@@ -156,13 +156,13 @@ public class KingdomKitsSetClassCmd implements SubCommandExecutor
                 {
                     if(sender instanceof Player)
                     {
-                        throw new ClassNotFoundException(sender);
+                        throw new PlayerClassNotFoundException(sender);
                     }
                     else if (sender instanceof ConsoleCommandSender)
                     {
                         ConsoleCommandSender consoleCommandSender = (ConsoleCommandSender) sender;
 
-                        throw new ClassNotFoundException((CommandSender) consoleCommandSender);
+                        throw new PlayerClassNotFoundException((CommandSender) consoleCommandSender);
                     }
 
                     return;
@@ -227,7 +227,7 @@ public class KingdomKitsSetClassCmd implements SubCommandExecutor
                 }
             }
         }
-        catch(PlayerCannotBecomeClassException | PlayerNotFoundException | ClassNotFoundException |
+        catch(PlayerCannotBecomeClassException | PlayerNotFoundException | PlayerClassNotFoundException |
                 AccessDeniedException | CoolDownHasNotExpiredException e)
         {
             //

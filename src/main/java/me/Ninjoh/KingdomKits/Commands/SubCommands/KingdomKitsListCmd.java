@@ -3,12 +3,18 @@ package me.Ninjoh.KingdomKits.Commands.SubCommands;
 
 import me.Ninjoh.KingdomKits.Main;
 import me.Ninjoh.NinCore.Library.Entity.Command;
+import me.Ninjoh.NinCore.Library.Entity.NinOnlinePlayer;
 import me.Ninjoh.NinCore.Library.Entity.SubCommand;
 import me.Ninjoh.NinCore.Library.Interfaces.SubCommandExecutor;
+import me.Ninjoh.NinCore.Library.Util.LocaleUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class KingdomKitsListCmd implements SubCommandExecutor
 {
@@ -21,10 +27,23 @@ public class KingdomKitsListCmd implements SubCommandExecutor
     {
         try
         {
+            Locale locale;
+            if(sender instanceof Player)
+            {
+                locale = NinOnlinePlayer.fromUUID(((Player) sender).getUniqueId()).getMinecraftLocale().toLocale();
+            }
+            else
+            {
+                locale = LocaleUtils.getDefaultMinecraftLocale().toLocale();
+            }
+
+
             ConfigurationSection playerClasses = config.getConfigurationSection("soulbound.classes");
 
+            final ResourceBundle mainMsgs = ResourceBundle.getBundle("lang.mainMsgs", locale);
+
             sender.sendMessage("");
-            sender.sendMessage("§8-=[ §b§l+ §8]=- §8[ §6List Of Player Classes §8] -= [ §b§l+ §8]=-");
+            sender.sendMessage("§8-=[ §b§l+ §8]=- §8[ §6" + mainMsgs.getString("listOfPlayerClasses") + " §8] -= [ §b§l+ §8]=-");
             sender.sendMessage("");
 
             int count = 1;
