@@ -1,7 +1,8 @@
 package me.Ninjoh.KingdomKits.Library.Entity;
 
 
-import me.Ninjoh.NinCore.Library.Entity.NinOnlinePlayer;
+import me.ninjoh.nincore.api.NinCore;
+import me.ninjoh.nincore.api.entity.NinPlayer;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -20,9 +21,9 @@ public class COnlinePlayer extends COfflinePlayer
     }
 
 
-    public NinOnlinePlayer getNinOnlinePlayer()
+    public NinPlayer getNinOnlinePlayer()
     {
-        return new NinOnlinePlayer(uuid);
+        return NinCore.getImplementation().getNinPlayer(getPlayer());
     }
 
 

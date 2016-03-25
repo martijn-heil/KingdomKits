@@ -1,13 +1,13 @@
 package me.Ninjoh.KingdomKits.Commands.SubCommands;
 
 
-import me.Ninjoh.NinCore.Library.Exceptions.AccessDeniedException;
-import me.Ninjoh.NinCore.Library.Exceptions.InvalidCommandSenderException;
 import me.Ninjoh.KingdomKits.Library.Exceptions.ItemAlreadySoulboundException;
 import me.Ninjoh.KingdomKits.Library.Util.ItemStackUtils;
-import me.Ninjoh.NinCore.Library.Entity.Command;
-import me.Ninjoh.NinCore.Library.Entity.SubCommand;
-import me.Ninjoh.NinCore.Library.Interfaces.SubCommandExecutor;
+import me.ninjoh.nincore.api.command.NinSubCommand;
+import me.ninjoh.nincore.api.command.executors.SubCommandExecutor;
+import me.ninjoh.nincore.api.exceptions.TechnicalException;
+import me.ninjoh.nincore.api.exceptions.ValidationException;
+import me.ninjoh.nincore.api.exceptions.validationexceptions.InvalidCommandSenderException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -20,57 +20,53 @@ import java.util.List;
 
 public class KingdomKitsBindCmd implements SubCommandExecutor
 {
+    private NinSubCommand subCommand;
+
 
     @Override
-    public void Handle(CommandSender sender, String[] args, Command command, SubCommand subCommand)
+    public SubCommandExecutor init(NinSubCommand ninSubCommand)
     {
-        try
+        this.subCommand = ninSubCommand;
+        return this;
+    }
+
+
+    @Override
+    public void execute(CommandSender sender, String[] strings) throws ValidationException, TechnicalException
+    {
+        if (sender instanceof Player)
         {
-            if (sender instanceof Player)
+            // Make item in player's hand soulbound.
+            Player p = (Player) sender;
+
+            // Check if item isn't null
+            if (p.getItemInHand() == null)
             {
-                if (sender.hasPermission("kingdomkits.bind") || sender.isOp())
-                {
-                    // Make item in player's hand soulbound.
-                    Player p = (Player) sender;
-
-                    // Check if item isn't null
-                    if (p.getItemInHand() == null)
-                    {
-                        return;
-                    }
-
-                    // Check if item isn't already soulbound
-                    if (ItemStackUtils.isSoulBound(p.getItemInHand()))
-                    {
-                        throw new ItemAlreadySoulboundException(sender);
-                    }
-
-                    List<String> lore = Collections.singletonList("§6§oSoulbound");
-
-                    ItemStack is = p.getItemInHand();
-                    ItemMeta im = is.getItemMeta();
-
-                    im.setLore(lore);
-                    is.setItemMeta(im);
-
-
-                    sender.sendMessage(ChatColor.DARK_PURPLE + "§oMade item soulbound");
-                }
-                else
-                {
-                    throw new AccessDeniedException(sender);
-                }
+                return;
             }
-            else if(sender instanceof ConsoleCommandSender)
+
+            // Check if item isn't already soulbound
+            if (ItemStackUtils.isSoulBound(p.getItemInHand()))
             {
-                ConsoleCommandSender consoleCommandSender = (ConsoleCommandSender) sender;
-
-                throw new InvalidCommandSenderException((CommandSender) consoleCommandSender);
+                throw new ItemAlreadySoulboundException(sender);
             }
+
+            List<String> lore = Collections.singletonList("§6§oSoulbound");
+
+            ItemStack is = p.getItemInHand();
+            ItemMeta im = is.getItemMeta();
+
+            im.setLore(lore);
+            is.setItemMeta(im);
+
+
+            sender.sendMessage(ChatColor.DARK_PURPLE + "§oMade item soulbound");
         }
-        catch(InvalidCommandSenderException | AccessDeniedException | ItemAlreadySoulboundException e)
+        else if (sender instanceof ConsoleCommandSender)
         {
-            //
+            ConsoleCommandSender consoleCommandSender = (ConsoleCommandSender) sender;
+
+            throw new InvalidCommandSenderException(consoleCommandSender);
         }
     }
 }

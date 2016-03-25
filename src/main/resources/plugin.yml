@@ -1,7 +1,7 @@
 name: KingdomKits
 version: 5.0.0
 author: Ninjoh
-main: me.Ninjoh.KingdomKits.Main
+main: me.Ninjoh.KingdomKits.KingdomKitsdomKits
 depend: [ArmorEquipEvent,Essentials]
 softdepend: [Factions,MassiveCore]
 commands:

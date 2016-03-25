@@ -1,11 +1,12 @@
 package me.Ninjoh.KingdomKits.Listeners;
 
-import ca.thederpygolems.armorequip.ArmorEquipEvent;
-import me.Ninjoh.KingdomKits.Library.Util.ItemStackUtils;
+import me.Ninjoh.KingdomKits.KingdomKits;
 import me.Ninjoh.KingdomKits.Library.Entity.COnlinePlayer;
-import me.Ninjoh.KingdomKits.Main;
-import me.Ninjoh.NinCore.Library.Entity.NinOnlinePlayer;
-import me.Ninjoh.NinCore.Library.Util.ServerUtils;
+import me.Ninjoh.KingdomKits.Library.Util.ItemStackUtils;
+import me.ninjoh.nincore.api.NinCore;
+import me.ninjoh.nincore.api.entity.NinPlayer;
+import me.ninjoh.nincore.api.events.ArmorEquipEvent;
+import me.ninjoh.nincore.api.util.TranslationUtils;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
@@ -28,8 +29,8 @@ import java.util.*;
 
 public class SoulBoundItemListener implements Listener
 {
-    public static FileConfiguration config = Main.config;
-    //public static FileConfiguration data = Main.data;
+    public static FileConfiguration config = KingdomKits.getInstance().getConfig();
+    //public static FileConfiguration data = KingdomKits.data;
 
     public ItemStackUtils helperMethods = new ItemStackUtils();
 
@@ -42,13 +43,10 @@ public class SoulBoundItemListener implements Listener
         {
             e.setCancelled(true);
 
-            final Locale locale = NinOnlinePlayer.fromUUID(e.getPlayer().getUniqueId()).getMinecraftLocale().toLocale();
-            final ResourceBundle errorMsgs = ResourceBundle.getBundle("lang.errorMsgs", locale);
+            NinPlayer np = NinCore.getImplementation().getNinPlayer(e.getPlayer());
 
-
-            COnlinePlayer cOnlinePlayer = new COnlinePlayer(e.getPlayer().getUniqueId());
-            cOnlinePlayer.getNinOnlinePlayer().sendError(errorMsgs.getString("eventError.cancelledItemDrop"));
-
+            np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs",
+                    np.getMinecraftLocale().toLocale()), "eventError.cancelledItemDrop"));
         }
     }
 
@@ -60,11 +58,10 @@ public class SoulBoundItemListener implements Listener
         {
             e.setCancelled(true);
 
-            final Locale locale = NinOnlinePlayer.fromUUID(e.getPlayer().getUniqueId()).getMinecraftLocale().toLocale();
-            final ResourceBundle errorMsgs = ResourceBundle.getBundle("lang.errorMsgs", locale);
+            NinPlayer np = NinCore.getImplementation().getNinPlayer(e.getPlayer());
 
-            COnlinePlayer cOnlinePlayer = new COnlinePlayer(e.getPlayer().getUniqueId());
-            cOnlinePlayer.getNinOnlinePlayer().sendError(errorMsgs.getString("eventError.cancelledPutItemOnArmorStand"));
+            np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs",
+                    np.getMinecraftLocale().toLocale()), "eventError.cancelledPutItemOnArmorStand"));
         }
     }
 
@@ -76,11 +73,10 @@ public class SoulBoundItemListener implements Listener
         {
             e.setCancelled(true);
 
-            final Locale locale = NinOnlinePlayer.fromUUID(e.getPlayer().getUniqueId()).getMinecraftLocale().toLocale();
-            final ResourceBundle errorMsgs = ResourceBundle.getBundle("lang.errorMsgs", locale);
+            NinPlayer np = NinCore.getImplementation().getNinPlayer(e.getPlayer());
 
-            COnlinePlayer cOnlinePlayer = new COnlinePlayer(e.getPlayer().getUniqueId());
-            cOnlinePlayer.getNinOnlinePlayer().sendError(errorMsgs.getString("eventError.cancelledPutItemInItemFrame"));
+            np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs",
+                    np.getMinecraftLocale().toLocale()), "eventError.cancelledPutItemInItemFrame"));
         }
     }
 
@@ -88,6 +84,8 @@ public class SoulBoundItemListener implements Listener
     @EventHandler(priority = EventPriority.HIGHEST) // If player tries to put a soulbound item in another inventory..
     public void onInventoryClick(InventoryClickEvent e)
     {
+        NinPlayer np = NinCore.getImplementation().getNinPlayer((Player) e.getWhoClicked());
+
         // Shift click an item from your inventory into the chest
         if (e.getClick().isShiftClick() &&
                 !e.getInventory().getType().equals(InventoryType.PLAYER) &&
@@ -104,11 +102,8 @@ public class SoulBoundItemListener implements Listener
                 {
                     e.setCancelled(true);
 
-                    final Locale locale = NinOnlinePlayer.fromUUID(e.getWhoClicked().getUniqueId()).getMinecraftLocale().toLocale();
-                    final ResourceBundle errorMsgs = ResourceBundle.getBundle("lang.errorMsgs", locale);
-
-                    COnlinePlayer cOnlinePlayer = new COnlinePlayer(e.getWhoClicked().getUniqueId());
-                    cOnlinePlayer.getNinOnlinePlayer().sendError(errorMsgs.getString("eventError.cancelledPutItemInInventory"));
+                    np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs",
+                            np.getMinecraftLocale().toLocale()), "eventError.cancelledPutItemInInventory"));
                 }
             }
         }
@@ -125,7 +120,7 @@ public class SoulBoundItemListener implements Listener
             {
                 e.setCancelled(true);
 
-                final Locale locale = NinOnlinePlayer.fromUUID(e.getWhoClicked().getUniqueId()).getMinecraftLocale().toLocale();
+                final Locale locale = np.getMinecraftLocale().toLocale();
                 final ResourceBundle errorMsgs = ResourceBundle.getBundle("lang.errorMsgs", locale);
 
                 // If player tries to drop item by clicking outside of his inventory while dragging the item..
@@ -133,13 +128,11 @@ public class SoulBoundItemListener implements Listener
                 // The PlayerDropItemEvent just puts the item back into the inventory, so this is a bit nicer..
                 if(clicked == null)
                 {
-                    COnlinePlayer cOnlinePlayer = new COnlinePlayer(e.getWhoClicked().getUniqueId());
-                    cOnlinePlayer.getNinOnlinePlayer().sendError(errorMsgs.getString("eventError.cancelledItemDrop"));
+                    np.sendError(errorMsgs.getString("eventError.cancelledItemDrop"));
                 }
                 else
                 {
-                    COnlinePlayer cOnlinePlayer = new COnlinePlayer(e.getWhoClicked().getUniqueId());
-                    cOnlinePlayer.getNinOnlinePlayer().sendError(errorMsgs.getString("eventError.cancelledPutItemInInventory"));
+                    np.sendError(errorMsgs.getString("eventError.cancelledPutItemInInventory"));
                 }
             }
         }
@@ -149,6 +142,8 @@ public class SoulBoundItemListener implements Listener
     @EventHandler(priority = EventPriority.HIGHEST) // Click the item, and drag it inside the chest
     public void onInventoryDrag(InventoryDragEvent e)
     {
+        NinPlayer np = NinCore.getImplementation().getNinPlayer((Player) e.getWhoClicked());
+
         ItemStack dragged = e.getOldCursor(); // This is the item that is being dragged
 
         if (ItemStackUtils.isSoulBound(dragged))
@@ -162,11 +157,8 @@ public class SoulBoundItemListener implements Listener
                 {
                     e.setCancelled(true);
 
-                    final Locale locale = NinOnlinePlayer.fromUUID(e.getWhoClicked().getUniqueId()).getMinecraftLocale().toLocale();
-                    final ResourceBundle errorMsgs = ResourceBundle.getBundle("lang.errorMsgs", locale);
-
-                    COnlinePlayer cOnlinePlayer = new COnlinePlayer(e.getWhoClicked().getUniqueId());
-                    cOnlinePlayer.getNinOnlinePlayer().sendError(errorMsgs.getString("eventError.cancelledPutItemInInventory"));
+                    np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs"
+                            , np.getMinecraftLocale().toLocale()), "eventError.cancelledPutItemInInventory"));
                     break;
                 }
             }
@@ -194,7 +186,8 @@ public class SoulBoundItemListener implements Listener
         COnlinePlayer ninOnlinePlayer = new COnlinePlayer(e.getPlayer().getUniqueId());
 
 
-        ServerUtils.dispatchCommand("essentials:kit " + ninOnlinePlayer.getPlayerClass().getKitName() + " " + e.getPlayer().getName());
+        NinCore.getImplementation().getNinServer().dispatchCommand("essentials:kit " +
+                ninOnlinePlayer.getPlayerClass().getKitName() + " " + e.getPlayer().getName());
     }
 
 
@@ -225,12 +218,10 @@ public class SoulBoundItemListener implements Listener
                 (!e.getMethod().equals(ArmorEquipEvent.EquipMethod.DEATH) ||
                 !e.getMethod().equals(ArmorEquipEvent.EquipMethod.BROKE)))
         {
-            final Locale locale = NinOnlinePlayer.fromUUID(e.getPlayer().getUniqueId()).getMinecraftLocale().toLocale();
-            final ResourceBundle errorMsgs = ResourceBundle.getBundle("lang.errorMsgs", locale);
+            NinPlayer np = NinCore.getImplementation().getNinPlayer(e.getPlayer());
 
-            COnlinePlayer cOnlinePlayer = new COnlinePlayer(e.getPlayer().getUniqueId());
-            cOnlinePlayer.getNinOnlinePlayer().sendError(errorMsgs.getString("eventError.cancelledEquip"));
-
+            np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs",
+                    np.getMinecraftLocale().toLocale()), "eventError.cancelledEquip"));
 
             e.setCancelled(true);
             e.getPlayer().updateInventory();
@@ -259,11 +250,10 @@ public class SoulBoundItemListener implements Listener
             {
                 e.setCancelled(true);
 
-                final Locale locale = NinOnlinePlayer.fromUUID(e.getDamager().getUniqueId()).getMinecraftLocale().toLocale();
-                final ResourceBundle errorMsgs = ResourceBundle.getBundle("lang.errorMsgs", locale);
+                NinPlayer np = NinCore.getImplementation().getNinPlayer(player);
 
-                COnlinePlayer cOnlinePlayer = new COnlinePlayer(e.getDamager().getUniqueId());
-                cOnlinePlayer.getNinOnlinePlayer().sendError(errorMsgs.getString("eventError.cancelledAttackWithWeapon"));
+                np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs",
+                        np.getMinecraftLocale().toLocale()), "eventError.cancelledAttackWithWeapon"));
             }
         }
 
@@ -288,11 +278,10 @@ public class SoulBoundItemListener implements Listener
             {
                 e.setCancelled(true);
 
-                final Locale locale = NinOnlinePlayer.fromUUID(e.getDamager().getUniqueId()).getMinecraftLocale().toLocale();
-                final ResourceBundle errorMsgs = ResourceBundle.getBundle("lang.errorMsgs", locale);
+                NinPlayer np = NinCore.getImplementation().getNinPlayer(player);
 
-                COnlinePlayer cOnlinePlayer = new COnlinePlayer(e.getDamager().getUniqueId());
-                cOnlinePlayer.getNinOnlinePlayer().sendError(errorMsgs.getString("eventError.cancelledAttackWithWeapon"));
+                np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs",
+                        np.getMinecraftLocale().toLocale()), "eventError.cancelledAttackWithWeapon"));
             }
         }
 
@@ -309,14 +298,13 @@ public class SoulBoundItemListener implements Listener
 
             e.setCancelled(true);
 
-            final Locale locale = NinOnlinePlayer.fromUUID(e.getEntity().getUniqueId()).getMinecraftLocale().toLocale();
-            final ResourceBundle errorMsgs = ResourceBundle.getBundle("lang.errorMsgs", locale);
-
             // Update player inventory so that the client doesn't think the arrow was used.
             player.updateInventory();
 
-            COnlinePlayer cOnlinePlayer = new COnlinePlayer(player.getUniqueId());
-            cOnlinePlayer.getNinOnlinePlayer().sendError(errorMsgs.getString("eventError.cancelledShotWithBow"));
+            NinPlayer np = NinCore.getImplementation().getNinPlayer(player);
+
+            np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs",
+                    np.getMinecraftLocale().toLocale()), "eventError.cancelledShotWithBow"));
         }
     }
 }

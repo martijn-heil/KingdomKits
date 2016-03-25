@@ -1,10 +1,12 @@
 package me.Ninjoh.KingdomKits.Listeners;
 
-import me.Ninjoh.KingdomKits.Library.Entity.COnlinePlayer;
-import me.Ninjoh.KingdomKits.Main;
-import me.Ninjoh.NinCore.Library.Entity.NinOnlinePlayer;
+import me.Ninjoh.KingdomKits.KingdomKits;
+import me.ninjoh.nincore.api.NinCore;
+import me.ninjoh.nincore.api.entity.NinPlayer;
+import me.ninjoh.nincore.api.util.TranslationUtils;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -14,12 +16,11 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class EnchantListener implements Listener
 {
-    public static FileConfiguration config = Main.config;
+    public static FileConfiguration config = KingdomKits.getInstance().getConfig();
 
 
     @EventHandler(priority= EventPriority.HIGHEST) // Prevent player enchanting soulbound items.
@@ -36,12 +37,11 @@ public class EnchantListener implements Listener
             // Cancel enchant event if the item is blacklisted
             e.setCancelled(true);
 
-            final Locale locale = NinOnlinePlayer.fromUUID(e.getEnchanter().getUniqueId()).getMinecraftLocale().toLocale();
-            final ResourceBundle errorMsgs = ResourceBundle.getBundle("lang.errorMsgs", locale);
 
+            NinPlayer np = NinCore.getImplementation().getNinPlayer(e.getEnchanter());
 
-            COnlinePlayer cOnlinePlayer = new COnlinePlayer(e.getEnchanter().getUniqueId());
-            cOnlinePlayer.getNinOnlinePlayer().sendError(errorMsgs.getString("eventError.cancelledEnchant"));
+            np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs",
+                    np.getMinecraftLocale().toLocale()), "eventError.cancelledEnchant"));
         }
     }
 
@@ -68,11 +68,10 @@ public class EnchantListener implements Listener
                         // If clicked inventory is an anvil && anvil contains enchanted book + a blacklisted item, cancel the event..
                         e.setCancelled(true);
 
-                        final Locale locale = NinOnlinePlayer.fromUUID(e.getWhoClicked().getUniqueId()).getMinecraftLocale().toLocale();
-                        final ResourceBundle errorMsgs = ResourceBundle.getBundle("lang.errorMsgs", locale);
+                        NinPlayer np = NinCore.getImplementation().getNinPlayer((Player) e.getWhoClicked());
 
-                        COnlinePlayer cOnlinePlayer = new COnlinePlayer(e.getWhoClicked().getUniqueId());
-                        cOnlinePlayer.getNinOnlinePlayer().sendError(errorMsgs.getString("eventError.cancelledAnvilUse"));
+                        np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs",
+                                np.getMinecraftLocale().toLocale()), "eventError.cancelledAnvilUse"));
                     }
                 }
             }

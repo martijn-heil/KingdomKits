@@ -1,26 +1,22 @@
 package me.Ninjoh.KingdomKits.Listeners;
 
-import com.massivecraft.factions.event.EventFactionsMembershipChange;
+import me.Ninjoh.KingdomKits.KingdomKits;
 import me.Ninjoh.KingdomKits.Library.Entity.COfflinePlayer;
 import me.Ninjoh.KingdomKits.Library.Entity.PlayerClass;
-import me.Ninjoh.KingdomKits.Main;
-import me.Ninjoh.NinCore.Library.Entity.NinOnlinePlayer;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 
 public class FactionEventsListener implements Listener
 {
-    public static FileConfiguration data = Main.data;
-    public static FileConfiguration config = Main.config;
+    public static FileConfiguration data = KingdomKits.getInstance().getDataManager().getData();
+    public static FileConfiguration config = KingdomKits.getInstance().getConfig();
 
 
     @EventHandler

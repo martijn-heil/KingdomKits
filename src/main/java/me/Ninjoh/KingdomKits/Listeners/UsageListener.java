@@ -1,7 +1,9 @@
 package me.Ninjoh.KingdomKits.Listeners;
 
-import me.Ninjoh.KingdomKits.Library.Entity.COnlinePlayer;
-import me.Ninjoh.NinCore.Library.Entity.NinOnlinePlayer;
+import me.Ninjoh.KingdomKits.KingdomKits;
+import me.ninjoh.nincore.api.NinCore;
+import me.ninjoh.nincore.api.entity.NinPlayer;
+import me.ninjoh.nincore.api.util.TranslationUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -9,15 +11,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import me.Ninjoh.KingdomKits.Main;
-
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 
 public class UsageListener implements Listener
 {
-    public static FileConfiguration config = Main.config;
+    public static FileConfiguration config = KingdomKits.getInstance().getConfig();
 
 
     @EventHandler(priority= EventPriority.HIGHEST)
@@ -30,11 +29,10 @@ public class UsageListener implements Listener
                 e.setCancelled(true);
                 e.getPlayer().updateInventory();
 
-                final Locale locale = NinOnlinePlayer.fromUUID(e.getPlayer().getUniqueId()).getMinecraftLocale().toLocale();
-                final ResourceBundle errorMsgs = ResourceBundle.getBundle("lang.errorMsgs", locale);
+                NinPlayer np = NinCore.getImplementation().getNinPlayer(e.getPlayer());
 
-                COnlinePlayer cOnlinePlayer = new COnlinePlayer(e.getPlayer().getUniqueId());
-                cOnlinePlayer.getNinOnlinePlayer().sendError(errorMsgs.getString("eventError.cancelledItemUse"));
+                np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs",
+                        np.getMinecraftLocale().toLocale()), "eventError.cancelledItemUse"));
             }
         }
     }

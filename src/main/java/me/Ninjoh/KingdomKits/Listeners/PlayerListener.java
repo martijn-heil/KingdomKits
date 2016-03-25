@@ -1,9 +1,9 @@
 package me.Ninjoh.KingdomKits.Listeners;
 
+import me.Ninjoh.KingdomKits.KingdomKits;
 import me.Ninjoh.KingdomKits.Library.Entity.COnlinePlayer;
 import me.Ninjoh.KingdomKits.Library.Entity.PlayerClass;
-import me.Ninjoh.KingdomKits.Main;
-import me.Ninjoh.NinCore.Library.Util.ServerUtils;
+import me.ninjoh.nincore.api.NinCore;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,9 +13,9 @@ import org.bukkit.plugin.Plugin;
 
 public class PlayerListener implements Listener
 {
-    public static FileConfiguration data = Main.data;
-    public static FileConfiguration config = Main.config;
-    Plugin plugin = me.Ninjoh.KingdomKits.Main.plugin;
+    public static FileConfiguration data = KingdomKits.getInstance().getDataManager().getData();
+    public static FileConfiguration config = KingdomKits.getInstance().getConfig();
+    Plugin plugin = KingdomKits.getInstance();
 
 
     @EventHandler // Give the player his class kit if the joins for the first time.
@@ -36,7 +36,7 @@ public class PlayerListener implements Listener
             plugin.getLogger().info("Creating new data entry for player: " + e.getPlayer().getName() + " (" + playerUUID + ")");
 
             // Give player default class kit
-            ServerUtils.dispatchCommand("essentials:kit " + config.getString("soulbound.classes." +
+            NinCore.getImplementation().getNinServer().dispatchCommand("essentials:kit " + config.getString("soulbound.classes." +
                     defaultClassName + ".kitName") + " " + e.getPlayer().getName());
         }
         else if (data.isSet(playerUUID))

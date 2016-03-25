@@ -1,9 +1,11 @@
 package me.Ninjoh.KingdomKits.Listeners;
 
-import me.Ninjoh.KingdomKits.Library.Entity.COnlinePlayer;
-import me.Ninjoh.KingdomKits.Main;
-import me.Ninjoh.NinCore.Library.Entity.NinOnlinePlayer;
+import me.Ninjoh.KingdomKits.KingdomKits;
+import me.ninjoh.nincore.api.NinCore;
+import me.ninjoh.nincore.api.entity.NinPlayer;
+import me.ninjoh.nincore.api.util.TranslationUtils;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -11,12 +13,11 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class CraftingListener implements Listener
 {
-    public static FileConfiguration config = Main.config;
+    public static FileConfiguration config = KingdomKits.getInstance().getConfig();
 
 
     @EventHandler(priority= EventPriority.HIGHEST)
@@ -35,13 +36,10 @@ public class CraftingListener implements Listener
                         items.contains(e.getCurrentItem().getType().toString()))
                 {
                     e.setCancelled(true);
+                    NinPlayer np = NinCore.getImplementation().getNinPlayer((Player) e.getWhoClicked());
 
-                    final Locale locale = NinOnlinePlayer.fromUUID(e.getWhoClicked().getUniqueId()).getMinecraftLocale().toLocale();
-                    final ResourceBundle errorMsgs = ResourceBundle.getBundle("lang.errorMsgs", locale);
-
-                    // Send user error message..
-                    COnlinePlayer cOnlinePlayer = new COnlinePlayer(e.getWhoClicked().getUniqueId());
-                    cOnlinePlayer.getNinOnlinePlayer().sendError(errorMsgs.getString("eventError.cancelledCraft"));
+                    np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs",
+                            np.getMinecraftLocale().toLocale()), "eventError.cancelledCraft"));
                 }
             }
         }

@@ -1,8 +1,9 @@
 package me.Ninjoh.KingdomKits.Library.Entity;
 
-import com.massivecraft.factions.entity.MPlayer;
-import me.Ninjoh.KingdomKits.Main;
-import me.Ninjoh.NinCore.Library.Entity.NinOfflinePlayer;
+import me.Ninjoh.KingdomKits.KingdomKits;
+import me.ninjoh.nincore.api.NinCore;
+import me.ninjoh.nincore.api.NinOfflinePlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,9 +15,9 @@ import java.util.UUID;
 
 public class COfflinePlayer
 {
-    JavaPlugin plugin = Main.plugin;
-    FileConfiguration data = Main.data;
-    FileConfiguration config = Main.config;
+    JavaPlugin plugin = KingdomKits.plugin;
+    FileConfiguration data = KingdomKits.data;
+    FileConfiguration config = KingdomKits.config;
 
     public UUID uuid;
 
@@ -30,7 +31,7 @@ public class COfflinePlayer
 
     public NinOfflinePlayer getNinOfflinePlayer()
     {
-        return new NinOfflinePlayer(uuid);
+        return NinCore.getImplementation().getNinOfflinePlayer(Bukkit.getOfflinePlayer(uuid));
     }
 
 
@@ -141,7 +142,7 @@ public class COfflinePlayer
     {
 
         // If factions integration isn't enabled, a player can always become this class.
-        if(!Main.useFactions)
+        if(!KingdomKits.useFactions)
         {
             return true;
         }

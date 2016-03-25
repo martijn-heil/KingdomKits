@@ -1,11 +1,11 @@
 package me.Ninjoh.KingdomKits.Library.Entity;
 
-import me.Ninjoh.KingdomKits.Main;
+import me.Ninjoh.KingdomKits.KingdomKits;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class PlayerClass
 {
-    private static FileConfiguration config = Main.config;
+    private static FileConfiguration config = KingdomKits.config;
 
     private String name;
 
