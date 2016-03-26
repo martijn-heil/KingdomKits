@@ -5,7 +5,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public class PlayerClass
 {
-    private static FileConfiguration config = KingdomKits.config;
+    private static FileConfiguration config = KingdomKits.getInstance().getConfig();
 
     private String name;
 

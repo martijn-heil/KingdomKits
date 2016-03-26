@@ -1,14 +1,17 @@
 package me.Ninjoh.KingdomKits.Listeners;
 
+import com.massivecraft.factions.event.EventFactionsMembershipChange;
 import me.Ninjoh.KingdomKits.KingdomKits;
 import me.Ninjoh.KingdomKits.Library.Entity.COfflinePlayer;
 import me.Ninjoh.KingdomKits.Library.Entity.PlayerClass;
+import me.ninjoh.nincore.api.NinCore;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -28,7 +31,12 @@ public class FactionEventsListener implements Listener
             return;
         }
 
-        Locale locale = NinOnlinePlayer.fromUUID(e.getMPlayer().getUuid()).getMinecraftLocale().toLocale();
+        Locale locale = NinCore.get().getDefaultMinecraftLocale().toLocale();
+
+        if(e.getMPlayer().isOnline())
+        {
+            locale = NinCore.get().getNinPlayer(e.getMPlayer().getPlayer()).getLocale();
+        }
 
         ResourceBundle messages = ResourceBundle.getBundle("lang.errorMsgs", locale);
 

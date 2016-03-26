@@ -1,5 +1,6 @@
 package me.Ninjoh.KingdomKits.Library.Entity;
 
+import com.massivecraft.factions.entity.MPlayer;
 import me.Ninjoh.KingdomKits.KingdomKits;
 import me.ninjoh.nincore.api.NinCore;
 import me.ninjoh.nincore.api.NinOfflinePlayer;
@@ -15,9 +16,9 @@ import java.util.UUID;
 
 public class COfflinePlayer
 {
-    JavaPlugin plugin = KingdomKits.plugin;
-    FileConfiguration data = KingdomKits.data;
-    FileConfiguration config = KingdomKits.config;
+    JavaPlugin plugin = KingdomKits.getInstance();
+    FileConfiguration data = KingdomKits.getInstance().getDataManager().getData();
+    FileConfiguration config = KingdomKits.getInstance().getConfig();
 
     public UUID uuid;
 
