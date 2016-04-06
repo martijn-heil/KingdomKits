@@ -1,15 +1,14 @@
-package me.Ninjoh.KingdomKits.Commands.SubCommands;
+package me.ninjoh.kingdomkits.subcommands;
 
 
-import me.Ninjoh.KingdomKits.KingdomKits;
-import me.Ninjoh.KingdomKits.Library.Entity.COfflinePlayer;
-import me.Ninjoh.KingdomKits.Library.Entity.COnlinePlayer;
-import me.Ninjoh.KingdomKits.Library.Entity.PlayerClass;
-import me.Ninjoh.KingdomKits.Library.Exceptions.CoolDownHasNotExpiredException;
-import me.Ninjoh.KingdomKits.Library.Exceptions.PlayerCannotBecomeClassException;
-import me.Ninjoh.KingdomKits.Library.Exceptions.PlayerClassNotFoundException;
-import me.ninjoh.nincore.api.command.NinSubCommand;
-import me.ninjoh.nincore.api.command.executors.SubCommandExecutor;
+import me.ninjoh.kingdomkits.KingdomKits;
+import me.ninjoh.kingdomkits.entity.COfflinePlayer;
+import me.ninjoh.kingdomkits.entity.COnlinePlayer;
+import me.ninjoh.kingdomkits.entity.PlayerClass;
+import me.ninjoh.kingdomkits.exceptions.CoolDownHasNotExpiredException;
+import me.ninjoh.kingdomkits.exceptions.PlayerCannotBecomeClassException;
+import me.ninjoh.kingdomkits.exceptions.PlayerClassNotFoundException;
+import me.ninjoh.nincore.api.command.executors.NinSubCommandExecutor;
 import me.ninjoh.nincore.api.exceptions.TechnicalException;
 import me.ninjoh.nincore.api.exceptions.ValidationException;
 import me.ninjoh.nincore.api.exceptions.validationexceptions.AccessDeniedException;
@@ -24,18 +23,9 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class KingdomKitsSetClassCmd implements SubCommandExecutor
+public class KingdomKitsSetClassCmd extends NinSubCommandExecutor
 {
     FileConfiguration data = KingdomKits.getInstance().getDataManager().getData();
-    private NinSubCommand ninSubCommand;
-
-
-    @Override
-    public SubCommandExecutor init(NinSubCommand ninSubCommand)
-    {
-        this.ninSubCommand = ninSubCommand;
-        return this;
-    }
 
 
     @Override

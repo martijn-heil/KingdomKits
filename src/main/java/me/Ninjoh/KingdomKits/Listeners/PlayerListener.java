@@ -1,14 +1,20 @@
-package me.Ninjoh.KingdomKits.Listeners;
+package me.ninjoh.kingdomkits.listeners;
 
-import me.Ninjoh.KingdomKits.KingdomKits;
-import me.Ninjoh.KingdomKits.Library.Entity.COnlinePlayer;
-import me.Ninjoh.KingdomKits.Library.Entity.PlayerClass;
+import me.ninjoh.kingdomkits.KingdomKits;
+import me.ninjoh.kingdomkits.entity.COnlinePlayer;
+import me.ninjoh.kingdomkits.entity.PlayerClass;
 import me.ninjoh.nincore.api.NinCore;
+import me.ninjoh.nincore.api.entity.NinPlayer;
+import me.ninjoh.nincore.api.util.TranslationUtils;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityToggleGlideEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
+
+import java.util.ResourceBundle;
 
 
 public class PlayerListener implements Listener
@@ -36,7 +42,7 @@ public class PlayerListener implements Listener
             plugin.getLogger().info("Creating new data entry for player: " + e.getPlayer().getName() + " (" + playerUUID + ")");
 
             // Give player default class kit
-            NinCore.getImplementation().getNinServer().dispatchCommand("essentials:kit " + config.getString("soulbound.classes." +
+            NinCore.get().getNinServer().dispatchCommand("essentials:kit " + config.getString("soulbound.classes." +
                     defaultClassName + ".kitName") + " " + e.getPlayer().getName());
         }
         else if (data.isSet(playerUUID))
@@ -52,6 +58,19 @@ public class PlayerListener implements Listener
 
                 ninOnlinePlayer.moveToDefaultPlayerClass();
             }
+        }
+    }
+
+    @EventHandler
+    public void onEntityToggleGlide(EntityToggleGlideEvent e)
+    {
+        if(e.isGliding() && e.getEntity() instanceof Player && config.getBoolean("preventElytra") &&
+                !e.getEntity().hasPermission("kingdomkits.bypass.elytra"))
+        {
+            e.setCancelled(true);
+
+            NinPlayer p = NinCore.get().getNinPlayer((Player) e.getEntity());
+            p.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs"), "eventError.cancelledElytra"));
         }
     }
 }

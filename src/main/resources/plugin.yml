@@ -1,8 +1,8 @@
 name: KingdomKits
 version: 5.0.0
 author: Ninjoh
-main: me.Ninjoh.KingdomKits.KingdomKits
-depend: [ArmorEquipEvent,Essentials]
+main: KingdomKits
+depend: [Essentials]
 softdepend: [Factions,MassiveCore]
 commands:
    kingdomkits:
@@ -20,13 +20,15 @@ permissions:
             kingdomkits.getclass: true
             kingdomkits.getclass.others: true
             kingdomkits.list: true
-#            kingdomkits.reload: true
             kingdomkits.bypass.factionmembershipchangeevent: true
+            kingdomkits.bypass.changeclasscooldown: true
+            kingdomkits.bypass.elytra: true
     kingdomkits.bypass.*:
         description: Gives access to all kingdomkits bypass permissions.
         children:
             kingdomkits.bypass.factionmembershipchangeevent: true
             kingdomkits.bypass.changeclasscooldown: true
+            kingdomkits.bypass.elytra: true
     kingdomkits.bind:
         default: op
     kingdomkits.list:
@@ -45,6 +47,5 @@ permissions:
         default: op
     kingdomkits.bypass.changeclasscooldown:
         default: op
-#    kingdomkits.reload:
-#        Description: The permission for the reload sub-command
-#        default: op
+    kingdomkits.bypass.elytra:
+        default: op

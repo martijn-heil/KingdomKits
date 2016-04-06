@@ -1,15 +1,13 @@
-package me.Ninjoh.KingdomKits.Listeners;
+package me.ninjoh.kingdomkits.listeners;
 
-import me.Ninjoh.KingdomKits.Library.Entity.COnlinePlayer;
-import me.ninjoh.nincore.api.NinCore;
+import me.ninjoh.kingdomkits.KingdomKits;
+import me.ninjoh.kingdomkits.entity.COnlinePlayer;
 import me.ninjoh.nincore.api.entity.NinPlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
-
-import me.Ninjoh.KingdomKits.KingdomKits;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -27,7 +25,7 @@ public class ConsumeListener implements Listener
         {
             e.setCancelled(true);
 
-            NinPlayer np = NinCore.getImplementation().getNinPlayer(e.getPlayer());
+            NinPlayer np = NinPlayer.fromPlayer(e.getPlayer());
             final Locale locale = np.getMinecraftLocale().toLocale();
             final ResourceBundle errorMsgs = ResourceBundle.getBundle("lang.errorMsgs", locale);
 

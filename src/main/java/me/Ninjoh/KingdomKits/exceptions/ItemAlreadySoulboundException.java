@@ -1,4 +1,4 @@
-package me.Ninjoh.KingdomKits.Library.Exceptions;
+package me.ninjoh.kingdomkits.exceptions;
 
 import me.ninjoh.nincore.api.NinCore;
 import me.ninjoh.nincore.api.exceptions.ValidationException;
@@ -7,12 +7,12 @@ import org.bukkit.command.CommandSender;
 
 import java.util.ResourceBundle;
 
-public class PlayerCannotBecomeClassException extends ValidationException
+public class ItemAlreadySoulboundException extends ValidationException
 {
-    public PlayerCannotBecomeClassException(CommandSender target)
+    public ItemAlreadySoulboundException(CommandSender target)
     {
         super(target, TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs",
                 NinCore.getImplementation().getNinCommandSender(target).getMinecraftLocale().
-                        toLocale()), "commandError.playerCannotBecomeClass"), null);
+                        toLocale()), "commandError.itemAlreadySoulbound"), null);
     }
 }

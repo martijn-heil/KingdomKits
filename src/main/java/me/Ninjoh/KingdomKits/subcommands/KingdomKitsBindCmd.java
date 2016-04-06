@@ -1,10 +1,9 @@
-package me.Ninjoh.KingdomKits.Commands.SubCommands;
+package me.ninjoh.kingdomkits.subcommands;
 
 
-import me.Ninjoh.KingdomKits.Library.Exceptions.ItemAlreadySoulboundException;
-import me.Ninjoh.KingdomKits.Library.Util.ItemStackUtils;
-import me.ninjoh.nincore.api.command.NinSubCommand;
-import me.ninjoh.nincore.api.command.executors.SubCommandExecutor;
+import me.ninjoh.kingdomkits.exceptions.ItemAlreadySoulboundException;
+import me.ninjoh.kingdomkits.util.ItemStackUtils;
+import me.ninjoh.nincore.api.command.executors.NinSubCommandExecutor;
 import me.ninjoh.nincore.api.exceptions.TechnicalException;
 import me.ninjoh.nincore.api.exceptions.ValidationException;
 import me.ninjoh.nincore.api.exceptions.validationexceptions.InvalidCommandSenderException;
@@ -18,19 +17,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Collections;
 import java.util.List;
 
-public class KingdomKitsBindCmd implements SubCommandExecutor
+public class KingdomKitsBindCmd extends NinSubCommandExecutor
 {
-    private NinSubCommand subCommand;
-
-
-    @Override
-    public SubCommandExecutor init(NinSubCommand ninSubCommand)
-    {
-        this.subCommand = ninSubCommand;
-        return this;
-    }
-
-
     @Override
     public void execute(CommandSender sender, String[] strings) throws ValidationException, TechnicalException
     {

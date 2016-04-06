@@ -1,6 +1,6 @@
-package me.Ninjoh.KingdomKits.Listeners;
+package me.ninjoh.kingdomkits.listeners;
 
-import me.Ninjoh.KingdomKits.KingdomKits;
+import me.ninjoh.kingdomkits.KingdomKits;
 import me.ninjoh.nincore.api.NinCore;
 import me.ninjoh.nincore.api.entity.NinPlayer;
 import me.ninjoh.nincore.api.util.TranslationUtils;
@@ -36,7 +36,7 @@ public class PotionListener implements Listener
                 {
                     e.setCancelled(true);
 
-                    NinPlayer np = NinCore.getImplementation().getNinPlayer(e.getPlayer());
+                    NinPlayer np = NinPlayer.fromPlayer(e.getPlayer());
 
                     np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs",
                             np.getMinecraftLocale().toLocale()), "eventError.cancelledPotionDrink"));

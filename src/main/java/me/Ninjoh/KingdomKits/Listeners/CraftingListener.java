@@ -1,6 +1,6 @@
-package me.Ninjoh.KingdomKits.Listeners;
+package me.ninjoh.kingdomkits.listeners;
 
-import me.Ninjoh.KingdomKits.KingdomKits;
+import me.ninjoh.kingdomkits.KingdomKits;
 import me.ninjoh.nincore.api.NinCore;
 import me.ninjoh.nincore.api.entity.NinPlayer;
 import me.ninjoh.nincore.api.util.TranslationUtils;

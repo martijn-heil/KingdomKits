@@ -1,11 +1,10 @@
-package me.Ninjoh.KingdomKits.Commands.SubCommands;
+package me.ninjoh.kingdomkits.subcommands;
 
 
-import me.Ninjoh.KingdomKits.KingdomKits;
-import me.Ninjoh.KingdomKits.Library.Entity.COfflinePlayer;
-import me.Ninjoh.KingdomKits.Library.Entity.COnlinePlayer;
-import me.ninjoh.nincore.api.command.NinSubCommand;
-import me.ninjoh.nincore.api.command.executors.SubCommandExecutor;
+import me.ninjoh.kingdomkits.KingdomKits;
+import me.ninjoh.kingdomkits.entity.COfflinePlayer;
+import me.ninjoh.kingdomkits.entity.COnlinePlayer;
+import me.ninjoh.nincore.api.command.executors.NinSubCommandExecutor;
 import me.ninjoh.nincore.api.exceptions.TechnicalException;
 import me.ninjoh.nincore.api.exceptions.ValidationException;
 import me.ninjoh.nincore.api.exceptions.validationexceptions.AccessDeniedException;
@@ -20,19 +19,8 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class KingdomKitsGetClassCmd implements SubCommandExecutor
+public class KingdomKitsGetClassCmd extends NinSubCommandExecutor
 {
-    private NinSubCommand ninSubCommand;
-
-
-    @Override
-    public SubCommandExecutor init(NinSubCommand ninSubCommand)
-    {
-        this.ninSubCommand = ninSubCommand;
-        return this;
-    }
-
-
     @Override
     public void execute(CommandSender sender, String[] args) throws ValidationException, TechnicalException
     {

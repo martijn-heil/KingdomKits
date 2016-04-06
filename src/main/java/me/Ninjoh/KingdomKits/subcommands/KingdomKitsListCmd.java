@@ -1,10 +1,9 @@
-package me.Ninjoh.KingdomKits.Commands.SubCommands;
+package me.ninjoh.kingdomkits.subcommands;
 
 
-import me.Ninjoh.KingdomKits.KingdomKits;
+import me.ninjoh.kingdomkits.KingdomKits;
 import me.ninjoh.nincore.api.NinCore;
-import me.ninjoh.nincore.api.command.NinSubCommand;
-import me.ninjoh.nincore.api.command.executors.SubCommandExecutor;
+import me.ninjoh.nincore.api.command.executors.NinSubCommandExecutor;
 import me.ninjoh.nincore.api.exceptions.TechnicalException;
 import me.ninjoh.nincore.api.exceptions.ValidationException;
 import org.bukkit.ChatColor;
@@ -14,19 +13,8 @@ import org.bukkit.configuration.ConfigurationSection;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class KingdomKitsListCmd implements SubCommandExecutor
+public class KingdomKitsListCmd extends NinSubCommandExecutor
 {
-    private NinSubCommand ninSubCommand;
-
-
-    @Override
-    public SubCommandExecutor init(NinSubCommand ninSubCommand)
-    {
-        this.ninSubCommand = ninSubCommand;
-        return this;
-    }
-
-
     @Override
     public void execute(CommandSender sender, String[] strings) throws ValidationException, TechnicalException
     {

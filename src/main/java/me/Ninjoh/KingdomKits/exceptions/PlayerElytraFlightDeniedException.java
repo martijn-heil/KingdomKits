@@ -1,4 +1,4 @@
-package me.Ninjoh.KingdomKits.Library.Exceptions;
+package me.ninjoh.kingdomkits.exceptions;
 
 import me.ninjoh.nincore.api.NinCore;
 import me.ninjoh.nincore.api.exceptions.ValidationException;
@@ -7,12 +7,13 @@ import org.bukkit.command.CommandSender;
 
 import java.util.ResourceBundle;
 
-public class ItemAlreadySoulboundException extends ValidationException
+
+public class PlayerElytraFlightDeniedException extends ValidationException
 {
-    public ItemAlreadySoulboundException(CommandSender target)
+    public PlayerElytraFlightDeniedException(CommandSender target)
     {
         super(target, TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs",
                 NinCore.getImplementation().getNinCommandSender(target).getMinecraftLocale().
-                        toLocale()), "commandError.itemAlreadySoulbound"), null);
+                        toLocale()), "eventError.cancelledElytra"), null);
     }
 }

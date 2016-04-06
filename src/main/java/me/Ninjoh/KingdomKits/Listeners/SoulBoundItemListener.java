@@ -1,8 +1,8 @@
-package me.Ninjoh.KingdomKits.Listeners;
+package me.ninjoh.kingdomkits.listeners;
 
-import me.Ninjoh.KingdomKits.KingdomKits;
-import me.Ninjoh.KingdomKits.Library.Entity.COnlinePlayer;
-import me.Ninjoh.KingdomKits.Library.Util.ItemStackUtils;
+import me.ninjoh.kingdomkits.KingdomKits;
+import me.ninjoh.kingdomkits.entity.COnlinePlayer;
+import me.ninjoh.kingdomkits.util.ItemStackUtils;
 import me.ninjoh.nincore.api.NinCore;
 import me.ninjoh.nincore.api.entity.NinPlayer;
 import me.ninjoh.nincore.api.events.ArmorEquipEvent;
@@ -188,6 +188,15 @@ public class SoulBoundItemListener implements Listener
 
         NinCore.getImplementation().getNinServer().dispatchCommand("essentials:kit " +
                 ninOnlinePlayer.getPlayerClass().getKitName() + " " + e.getPlayer().getName());
+
+        for (String cmd : ninOnlinePlayer.getPlayerClass().getCmdsExecutedOnPlayerRespawn())
+        {
+            cmd = cmd.replace("{player_name}", e.getPlayer().getName());
+            cmd = cmd.replace("{player_displayname}", e.getPlayer().getDisplayName());
+            cmd = cmd.replace("{player_uuid}", e.getPlayer().getUniqueId().toString());
+
+            NinCore.get().getNinServer().dispatchCommand(cmd);
+        }
     }
 
 

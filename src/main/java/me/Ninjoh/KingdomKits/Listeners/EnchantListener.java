@@ -1,6 +1,6 @@
-package me.Ninjoh.KingdomKits.Listeners;
+package me.ninjoh.kingdomkits.listeners;
 
-import me.Ninjoh.KingdomKits.KingdomKits;
+import me.ninjoh.kingdomkits.KingdomKits;
 import me.ninjoh.nincore.api.NinCore;
 import me.ninjoh.nincore.api.entity.NinPlayer;
 import me.ninjoh.nincore.api.util.TranslationUtils;
@@ -68,7 +68,7 @@ public class EnchantListener implements Listener
                         // If clicked inventory is an anvil && anvil contains enchanted book + a blacklisted item, cancel the event..
                         e.setCancelled(true);
 
-                        NinPlayer np = NinCore.getImplementation().getNinPlayer((Player) e.getWhoClicked());
+                        NinPlayer np = NinPlayer.fromPlayer((Player) e.getWhoClicked());
 
                         np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs",
                                 np.getMinecraftLocale().toLocale()), "eventError.cancelledAnvilUse"));

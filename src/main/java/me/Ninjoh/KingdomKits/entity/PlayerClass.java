@@ -1,22 +1,27 @@
-package me.Ninjoh.KingdomKits.Library.Entity;
+package me.ninjoh.kingdomkits.entity;
 
-import me.Ninjoh.KingdomKits.KingdomKits;
+import me.ninjoh.kingdomkits.KingdomKits;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+
+import java.util.List;
 
 public class PlayerClass
 {
     private static FileConfiguration config = KingdomKits.getInstance().getConfig();
 
     private String name;
+    private ConfigurationSection classSection;
 
     /**
      * Constructor
      *
      * @param className The player class name.
      */
-    PlayerClass(String className)
+    public PlayerClass(String className)
     {
         name = className;
+        this.classSection = KingdomKits.getInstance().getConfig().getConfigurationSection("soulbound.classes." + name);
     }
 
     /**
@@ -37,7 +42,7 @@ public class PlayerClass
      */
     public String getKitName()
     {
-        return config.getString("soulbound.classes." + name + ".kitName");
+        return classSection.getString("kitname");
     }
 
 
@@ -48,7 +53,7 @@ public class PlayerClass
      */
     public boolean usesMaxPercentagePerFaction()
     {
-        return config.getBoolean("soulbound.classes." + name + ".useMaxPercentagePerFaction");
+        return classSection.getBoolean("useMaxPercentagePerFaction");
     }
 
 
@@ -60,6 +65,12 @@ public class PlayerClass
     public boolean isDefaultPlayerClass()
     {
         return name.equals(config.getString("soulbound.defaultClass"));
+    }
+
+
+    public List<String> getCmdsExecutedOnPlayerRespawn()
+    {
+        return classSection.getStringList("commandsExecutedOnPlayerRespawn");
     }
 
 

@@ -1,4 +1,4 @@
-package me.Ninjoh.KingdomKits.Library.Exceptions;
+package me.ninjoh.kingdomkits.exceptions;
 
 import me.ninjoh.nincore.api.NinCore;
 import me.ninjoh.nincore.api.exceptions.ValidationException;

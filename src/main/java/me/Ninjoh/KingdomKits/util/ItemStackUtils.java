@@ -1,4 +1,4 @@
-package me.Ninjoh.KingdomKits.Library.Util;
+package me.ninjoh.kingdomkits.util;
 
 import org.bukkit.inventory.ItemStack;
 
@@ -13,15 +13,6 @@ public class ItemStackUtils
      */
     public static boolean isSoulBound(ItemStack item)
     {
-        try
-        {
-            return item.getItemMeta().getLore().contains("§6§oSoulbound");
-        }
-        catch(NullPointerException e)
-        {
-            //
-        }
-
-        return false;
+        return item.getItemMeta().getLore().contains("§6§oSoulbound");
     }
 }

@@ -1,7 +1,7 @@
-package me.Ninjoh.KingdomKits.Library.Entity;
+package me.ninjoh.kingdomkits.entity;
 
 import com.massivecraft.factions.entity.MPlayer;
-import me.Ninjoh.KingdomKits.KingdomKits;
+import me.ninjoh.kingdomkits.KingdomKits;
 import me.ninjoh.nincore.api.NinCore;
 import me.ninjoh.nincore.api.NinOfflinePlayer;
 import org.bukkit.Bukkit;

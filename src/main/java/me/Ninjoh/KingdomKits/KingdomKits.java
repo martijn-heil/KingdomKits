@@ -1,10 +1,9 @@
-package me.Ninjoh.KingdomKits;
+package me.ninjoh.kingdomkits;
 
-import me.Ninjoh.KingdomKits.Commands.SubCommands.KingdomKitsBindCmd;
-import me.Ninjoh.KingdomKits.Commands.SubCommands.KingdomKitsGetClassCmd;
-import me.Ninjoh.KingdomKits.Commands.SubCommands.KingdomKitsListCmd;
-import me.Ninjoh.KingdomKits.Commands.SubCommands.KingdomKitsSetClassCmd;
-import me.Ninjoh.KingdomKits.Listeners.*;
+import me.ninjoh.kingdomkits.subcommands.KingdomKitsBindCmd;
+import me.ninjoh.kingdomkits.subcommands.KingdomKitsGetClassCmd;
+import me.ninjoh.kingdomkits.subcommands.KingdomKitsSetClassCmd;
+import me.ninjoh.kingdomkits.subcommands.KingdomKitsListCmd;
 import me.ninjoh.nincore.api.NinCore;
 import me.ninjoh.nincore.api.NinCorePlugin;
 import me.ninjoh.nincore.api.command.NinCommand;
@@ -30,6 +29,7 @@ public class KingdomKits extends NinCorePlugin
     @Override
     public void onEnableInner() // Fired when the server enables the plugin
     {
+        instance = this;
         DateTimeZone.setDefault(DateTimeZone.UTC);
 
 
@@ -83,7 +83,7 @@ public class KingdomKits extends NinCorePlugin
 
 
         // Current configuration file version
-        int currentConfigVersion = 3;
+        int currentConfigVersion = 4;
 
         // If the configuration file version in the config doesn't match with the hardcoded version above,
         // the plugin terminates with an error message.
