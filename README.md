@@ -229,13 +229,14 @@ usage:
 #### Dependencies:
 - Dependencies:
     - [ArmorEquipEvent v1.5](https://www.spigotmc.org/resources/lib-armorequipevent.5478/update?update=56532)
+    - [Essentials](https://hub.spigotmc.org/jenkins/job/Spigot-Essentials/)
 
 - Optional Dependencies:
     - [Factions](https://www.spigotmc.org/resources/factions.1900/)
 
 
 #### System requirements:
-- Java >= 7
+- Java >= 8
 
 
 #### FAQ:

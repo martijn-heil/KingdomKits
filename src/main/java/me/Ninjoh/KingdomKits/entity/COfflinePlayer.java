@@ -48,8 +48,6 @@ public class COfflinePlayer
     }
 
 
-
-
     /**
      * Get a player's class
      *
