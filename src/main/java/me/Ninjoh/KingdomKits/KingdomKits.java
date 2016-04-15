@@ -1,14 +1,15 @@
 package me.ninjoh.kingdomkits;
 
+import me.ninjoh.kingdomkits.listeners.*;
 import me.ninjoh.kingdomkits.subcommands.KingdomKitsBindCmd;
 import me.ninjoh.kingdomkits.subcommands.KingdomKitsGetClassCmd;
-import me.ninjoh.kingdomkits.subcommands.KingdomKitsSetClassCmd;
 import me.ninjoh.kingdomkits.subcommands.KingdomKitsListCmd;
-import me.ninjoh.nincore.api.NinCore;
+import me.ninjoh.kingdomkits.subcommands.KingdomKitsSetClassCmd;
 import me.ninjoh.nincore.api.NinCorePlugin;
 import me.ninjoh.nincore.api.command.NinCommand;
 import me.ninjoh.nincore.api.command.builders.CommandBuilder;
 import me.ninjoh.nincore.api.command.builders.SubCommandBuilder;
+import me.ninjoh.nincore.api.localization.LocalizedString;
 import me.ninjoh.nincore.api.logging.LogColor;
 import net.mcapi.uuid.ServerRegion;
 import net.mcapi.uuid.UUIDAPI;
@@ -20,7 +21,6 @@ public class KingdomKits extends NinCorePlugin
     private static String DEFAULT_SERVER_REGION = "EU";
 
     private static KingdomKits instance;
-
 
     // Factions integration
     public static boolean useFactions = false;
@@ -104,6 +104,9 @@ public class KingdomKits extends NinCorePlugin
             return;
         }
 
+        // This handler does not spam the console with request status messages. Furthermore it's exactly the same.
+        UUIDAPI.setHandler(new MainUUIDAPIHandler());
+
         // UUID API Server region, either EU or US.
         String apiRegion = this.getConfig().getString("serverRegion").toUpperCase();
 
@@ -119,30 +122,6 @@ public class KingdomKits extends NinCorePlugin
             UUIDAPI.setRegion(ServerRegion.valueOf(this.getConfig().getString("serverRegion")));
             this.getNinLogger().config("UUID API Server region set to: " + this.getConfig().getString("serverRegion"));
         }
-
-
-//        String[] subCmdDesc_bind = {"bind.desc", "lang.subCmdMessages"};
-//        String[] subCmdDesc_getclass = {"getclass.desc", "lang.subCmdMessages"};
-//        String[] subCmdDesc_info = {"info.desc", "lang.subCmdMessages"};
-//        String[] subCmdDesc_list = {"list.desc", "lang.subCmdMessages"};
-//        String[] subCmdDesc_setclass = {"setclass.desc", "lang.subCmdMessages"};
-//        String[] subCmdDesc_help = {"help.desc", "lang.subCmdMessages"};
-
-
-        // Register kingdomkits command & sub commands.
-//        List<SubCommand> subCommands = new ArrayList<>();
-//        subCommands.add(new SubCommand("bind", null, null, subCmdDesc_bind, "kingdomkits.bind", new KingdomKitsBindCmd()));
-//        subCommands.add(new SubCommand("getclass", null, "<player=you>", subCmdDesc_getclass, "kingdomkits.getclass", new KingdomKitsGetClassCmd()));
-//        subCommands.add(new SubCommand("info", null, null, subCmdDesc_info, null, new KingdomKitsInfoCmd()));
-//        subCommands.add(new SubCommand("list", null, null, subCmdDesc_list, "kingdomkits.list", new KingdomKitsListCmd()));
-//        subCommands.add(new SubCommand("setclass", null, "<class> <player=you>", subCmdDesc_setclass, "kingdomkits.setclass", new KingdomKitsSetClassCmd()));
-//        subCommands.add(new SubCommand("help", null, "<sub command?>", subCmdDesc_help, null, new KingdomKitsHelpCmd()));
-//
-//
-//        Command kingdomkits = new Command("kingdomkits", subCommands, plugin);
-//        kingdomkits.setExecutor(new KingdomKitsCmd(kingdomkits));
-//
-//        Commands.add(kingdomkits);
 
         this.getNinLogger().info("Creating kingdomkits command..");
         CommandBuilder kkBuider = new CommandBuilder(this);
@@ -160,11 +139,10 @@ public class KingdomKits extends NinCorePlugin
         bindBuilder.setName("bind");
         bindBuilder.setRequiredPermission("kingdomkits.bind");
         bindBuilder.setUseStaticDescription(false);
-        bindBuilder.setDescriptionBundleBaseName("lang.subCmdMessages");
-        bindBuilder.setDescriptionKey("bind.desc");
+        bindBuilder.setLocalizedDescription(new LocalizedString(this.getClassLoader(), "lang.subCmdMessages", "bind.desc"));
         bindBuilder.setParentCommand(kk);
         bindBuilder.setExecutor(new KingdomKitsBindCmd());
-        NinCore.get().registerNinSubCommand(bindBuilder.construct(), this);
+        bindBuilder.construct();
 
         this.getNinLogger().fine("Creating" + LogColor.HIGHLIGHT + "/kingdomkits getclass" + LogColor.RESET + " sub command.");
         SubCommandBuilder getclassBuilder = new SubCommandBuilder();
@@ -172,34 +150,31 @@ public class KingdomKits extends NinCorePlugin
         getclassBuilder.setUsage("<player=you>");
         getclassBuilder.setRequiredPermission("kingdomkits.getclass");
         getclassBuilder.setUseStaticDescription(false);
-        getclassBuilder.setDescriptionBundleBaseName("lang.subCmdMessages");
-        getclassBuilder.setDescriptionKey("getclass.desc");
+        getclassBuilder.setLocalizedDescription(new LocalizedString(this.getClassLoader(), "lang.subCmdMessages", "getclass.desc"));
         getclassBuilder.setParentCommand(kk);
         getclassBuilder.setExecutor(new KingdomKitsGetClassCmd());
-        NinCore.get().registerNinSubCommand(getclassBuilder.construct(), this);
+        getclassBuilder.construct();
 
         this.getNinLogger().fine("Creating" + LogColor.HIGHLIGHT + "/kingdomkits list" + LogColor.RESET + " sub command.");
         SubCommandBuilder listBuilder = new SubCommandBuilder();
         listBuilder.setName("list");
         listBuilder.setRequiredPermission("kingdomkits.list");
         listBuilder.setUseStaticDescription(false);
-        listBuilder.setDescriptionBundleBaseName("lang.subCmdMessages");
-        listBuilder.setDescriptionKey("list.desc");
+        listBuilder.setLocalizedDescription(new LocalizedString(this.getClassLoader(), "lang.subCmdMessages", "list.desc"));
         listBuilder.setParentCommand(kk);
         listBuilder.setExecutor(new KingdomKitsListCmd());
-        NinCore.get().registerNinSubCommand(listBuilder.construct(), this);
+        listBuilder.construct();
 
         this.getNinLogger().fine("Creating" + LogColor.HIGHLIGHT + "/kingdomkits setclass" + LogColor.RESET + " sub command.");
-        SubCommandBuilder setlassBuilder = new SubCommandBuilder();
-        setlassBuilder.setName("setclass");
-        setlassBuilder.setUsage("<class> <player=you>");
-        setlassBuilder.setRequiredPermission("kingdomkits.setclass");
-        setlassBuilder.setUseStaticDescription(false);
-        setlassBuilder.setDescriptionBundleBaseName("lang.subCmdMessages");
-        setlassBuilder.setDescriptionKey("setclass.desc");
-        setlassBuilder.setParentCommand(kk);
-        setlassBuilder.setExecutor(new KingdomKitsSetClassCmd());
-        NinCore.get().registerNinSubCommand(setlassBuilder.construct(), this);
+        SubCommandBuilder setClassBuilder = new SubCommandBuilder();
+        setClassBuilder.setName("setclass");
+        setClassBuilder.setUsage("<class> <player=you>");
+        setClassBuilder.setRequiredPermission("kingdomkits.setclass");
+        setClassBuilder.setUseStaticDescription(false);
+        setClassBuilder.setLocalizedDescription(new LocalizedString(this.getClassLoader(), "lang.subCmdMessages", "setclass.desc"));
+        setClassBuilder.setParentCommand(kk);
+        setClassBuilder.setExecutor(new KingdomKitsSetClassCmd());
+        setClassBuilder.construct();
     }
 
 

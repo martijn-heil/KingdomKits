@@ -21,13 +21,13 @@ public class COnlinePlayer extends COfflinePlayer
     }
 
 
-    public NinPlayer toNinOnlinePlayer()
+    public NinPlayer toNinPlayer()
     {
-        return NinPlayer.fromPlayer(this.getPlayer());
+        return NinPlayer.fromPlayer(this.toPlayer());
     }
 
 
-    public Player getPlayer()
+    public Player toPlayer()
     {
         return Bukkit.getServer().getPlayer(uuid);
     }

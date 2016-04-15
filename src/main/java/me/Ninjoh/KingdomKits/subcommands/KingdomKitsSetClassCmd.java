@@ -61,7 +61,7 @@ public class KingdomKitsSetClassCmd extends NinSubCommandExecutor
 
                 if (!ninOnlinePlayer.canBecomeClass(className))
                 {
-                    throw new PlayerCannotBecomeClassException((CommandSender) ninOnlinePlayer.getPlayer());
+                    throw new PlayerCannotBecomeClassException((CommandSender) ninOnlinePlayer.toPlayer());
                 }
             }
 
@@ -169,7 +169,7 @@ public class KingdomKitsSetClassCmd extends NinSubCommandExecutor
                     !sender.hasPermission("kingdomkits.bypass.changeclasscooldown"))
             {
                 throw new CoolDownHasNotExpiredException(sender, ninOfflinePlayer.getNextPossibleClassSwitchTime(),
-                        ninOfflinePlayer.getOfflinePlayer().getName());
+                        ninOfflinePlayer.toOfflinePlayer().getName());
             }
 
 
@@ -191,9 +191,9 @@ public class KingdomKitsSetClassCmd extends NinSubCommandExecutor
             }
 
             // If the target player is online, give him a little notification.
-            if (ninOfflinePlayer.getOfflinePlayer().isOnline())
+            if (ninOfflinePlayer.toOfflinePlayer().isOnline())
             {
-                ninOfflinePlayer.getOfflinePlayer().getPlayer().sendMessage(ChatColor.DARK_GRAY +
+                ninOfflinePlayer.toOfflinePlayer().getPlayer().sendMessage(ChatColor.DARK_GRAY +
                         sender.getName() + ChatColor.YELLOW + " has set your class to " + ChatColor.DARK_GRAY + className);
             }
         }

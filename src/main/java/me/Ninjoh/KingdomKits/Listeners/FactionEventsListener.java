@@ -63,9 +63,9 @@ public class FactionEventsListener implements Listener
             COfflinePlayer ninOfflinePlayer = new COfflinePlayer(e.getMPlayer().getUuid());
             ninOfflinePlayer.moveToDefaultPlayerClass();
 
-            if(ninOfflinePlayer.getOfflinePlayer().isOnline())
+            if(ninOfflinePlayer.toOfflinePlayer().isOnline())
             {
-                ninOfflinePlayer.getOfflinePlayer().getPlayer().sendMessage(finalMessage);
+                ninOfflinePlayer.toOfflinePlayer().getPlayer().sendMessage(finalMessage);
             }
         }
     }

@@ -8,7 +8,7 @@ All sub commands below are sub command of the command */kingdomkits* (Alias: */k
 | help        | Show plugin help.                     | None                 |
 | info        | Show plugin info.                     | None                 |
 | list        | Show a list of all classes.           | None                 |
-| getClass    | Get a player's class.                 | None                 |
+| getClass    | Get a player's class.                 | kingdomkits.getclass |
 | setClass    | Set a player's class.                 | kingdomkits.setclass |
 | reload      | Reload the plugin config.             | kingdomkits.reload   |
 | bind        | Make the item in your hand soulbound. | kingdomkits.bind     |
@@ -22,12 +22,15 @@ All sub commands below are sub command of the command */kingdomkits* (Alias: */k
 # For further information see: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
 
 # Don't change this!
-configVersion: 3
+configVersion: 4
 
 # Interval in ticks for saving the data file.
 # NOTE: 1 second = 20 ticks
 # Default value is set to 6000 ticks, wich is 5 minutes exact.
 dataFileSaveInterval: 6000
+
+# Should localization be used?
+useLocalization: true
 
 # Enable integration with factions?
 # This is for the maxpercentage stuff with player classes.
@@ -36,7 +39,7 @@ dataFileSaveInterval: 6000
 #
 # If the factions plugin is not installed but this value is set to true, faction integration
 # will not be enabled since it is impossible to do that when factions isn't installed.
-enableFactionsIntegration: true
+enableFactionsIntegration: false
 
 
 
@@ -129,7 +132,7 @@ soulbound:
   # Default class for players
   defaultClass: 'footsoldier'
 
-  # Cool down in minutes
+  # Cool down between class switches in minutes
   # Default value(1440) is 1 day exact.
   coolDownInMinutes: 1440
 
@@ -141,23 +144,34 @@ soulbound:
   # Classes are defined below
   # Essentials kits are used for the kits.
   # WARNING: Do not name a class "default"
+  #
+  # You should not include a leading slash in any commands executed on respawn.
+  # You may use variables in commandsExeCutedOnPlayerRespawn. You may use the following variables;
+  #
+  # {player_name} | The player's Minecraft username.
+  # {player_uuid} | The player's uuid.
+  # {player_displayname} | The player's displayname.
   classes:
     footsoldier:
       kitName: 'footsoldier'
       useMaxPercentagePerFaction: true
       maxPercentagePerFaction: 100
+      commandsExecutedOnPlayerRespawn: []
     archer:
       kitName: 'archer'
       useMaxPercentagePerFaction: true
       maxPercentagePerFaction: 50
+      commandsExecutedOnPlayerRespawn: []
     knight:
       kitName: 'knight'
       useMaxPercentagePerFaction: false
       maxPercentagePerFaction: 100
+      commandsExecutedOnPlayerRespawn: []
     lord:
       kitName: 'lord'
       useMaxPercentagePerFaction: false
       maxPercentagePerFaction: 100
+      commandsExecutedOnPlayerRespawn: []
 
 # Potion section
 potions:
@@ -172,7 +186,7 @@ potions:
 # Use the potions section above to disable
 # consuming of potions as well as
 # throwing potions & dispensers/droppers shooting potions
-# So, don't add POTION to this list.
+# So, don't add POTION to this list (unless you want to stop people from drinking water bottles, that is).
 consume:
   blacklistedItems: # Items wich cannot be consumed (eat, drink, etc).
     - 'GOLDEN_APPLE'
@@ -186,44 +200,53 @@ usage:
   blacklistedItems: # Items wich cannot be used (right mouse button).
   - 'BOAT'
   - 'ENDER_PEARL'
+
+# Prevent players from flying with the elytra?
+preventElytra: false
 ````
 
 #### Permissions:
 ````
-        kingdomkits.*:
-            description: Gives access to all kingdomkits permissions & commands.
-            children:
-                kingdomkits.bind: true
-                kingdomkits.setclass: true
-                kingdomkits.setclass.class.*: true
-                kingdomkits.setclass.others: true
-                kingdomkits.getclass: true
-                kingdomkits.getclass.others: true
-                kingdomkits.list: true
-                kingdomkits.bypass.factionmembershipchangeevent: true
-        kingdomkits.bypass.*:
-            description: Gives access to all kingdomkits bypass permissions.
-            children:
-                kingdomkits.bypass.factionmembershipchangeevent: true
-                kingdomkits.bypass.changeclasscooldown: true
-        kingdomkits.bind:
-            default: op
-        kingdomkits.list:
-            default: true
-        kingdomkits.setclass:
-            default: op
-        kingdomkits.setclass.class.*:
-            default: op
-        kingdomkits.setclass.others:
-            default: op
-        kingdomkits.getclass:
-            default: true
-        kingdomkits.getclass.others:
-            default: true
-        kingdomkits.bypass.factionmembershipchangeevent:
-            default: op
-        kingdomkits.bypass.changeclasscooldown:
-            default: op
+permissions:
+    kingdomkits.*:
+        description: Gives access to all kingdomkits permissions & commands.
+        children:
+            kingdomkits.bind: true
+            kingdomkits.setclass: true
+            kingdomkits.setclass.class.*: true
+            kingdomkits.setclass.others: true
+            kingdomkits.getclass: true
+            kingdomkits.getclass.others: true
+            kingdomkits.list: true
+            kingdomkits.bypass.factionmembershipchangeevent: true
+            kingdomkits.bypass.changeclasscooldown: true
+            kingdomkits.bypass.elytra: true
+    kingdomkits.bypass.*:
+        description: Gives access to all kingdomkits bypass permissions.
+        children:
+            kingdomkits.bypass.factionmembershipchangeevent: true
+            kingdomkits.bypass.changeclasscooldown: true
+            kingdomkits.bypass.elytra: true
+    kingdomkits.bind:
+        default: op
+    kingdomkits.list:
+        default: true
+    kingdomkits.setclass:
+        default: op
+    kingdomkits.setclass.class.*:
+        default: op
+    kingdomkits.setclass.others:
+        default: op
+    kingdomkits.getclass:
+        default: true
+    kingdomkits.getclass.others:
+        default: true
+    kingdomkits.bypass.factionmembershipchangeevent:
+        default: op
+    kingdomkits.bypass.changeclasscooldown:
+        default: op
+    kingdomkits.bypass.elytra:
+        default: op
 ````
 
 #### Dependencies:

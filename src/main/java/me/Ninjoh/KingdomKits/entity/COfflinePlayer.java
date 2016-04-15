@@ -16,11 +16,11 @@ import java.util.UUID;
 
 public class COfflinePlayer
 {
-    JavaPlugin plugin = KingdomKits.getInstance();
-    FileConfiguration data = KingdomKits.getInstance().getDataManager().getData();
-    FileConfiguration config = KingdomKits.getInstance().getConfig();
+    private JavaPlugin plugin = KingdomKits.getInstance();
+    private FileConfiguration data = KingdomKits.getInstance().getDataManager().getData();
+    private FileConfiguration config = KingdomKits.getInstance().getConfig();
 
-    public UUID uuid;
+    UUID uuid;
 
 
 
@@ -30,13 +30,13 @@ public class COfflinePlayer
     }
 
 
-    public NinOfflinePlayer getNinOfflinePlayer()
+    public NinOfflinePlayer toNinOfflinePlayer()
     {
         return NinCore.getImplementation().getNinOfflinePlayer(Bukkit.getOfflinePlayer(uuid));
     }
 
 
-    public OfflinePlayer getOfflinePlayer()
+    public OfflinePlayer toOfflinePlayer()
     {
         return plugin.getServer().getOfflinePlayer(uuid);
     }
@@ -171,12 +171,12 @@ public class COfflinePlayer
 
         float total = 0;
 
-        // Players in a class wich doesn't use MaxPercentagePerFaction should not be counted to the total.
+        // Players in a class which doesn't use MaxPercentagePerFaction should not be counted to the total.
         for (MPlayer mP: list)
         {
             COnlinePlayer cPlayer = new COnlinePlayer(mP.getUuid());
 
-            if(getPlayerClass().usesMaxPercentagePerFaction())
+            if(cPlayer.getPlayerClass().usesMaxPercentagePerFaction())
             {
                 total++;
             }
@@ -193,7 +193,7 @@ public class COfflinePlayer
         {
             COnlinePlayer cPlayer = new COnlinePlayer(mP.getUuid());
 
-            if(getPlayerClass().equals(playerClass))
+            if(cPlayer.getPlayerClass().equals(playerClass))
             {
                 count++;
             }

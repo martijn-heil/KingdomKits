@@ -9,7 +9,6 @@ import me.ninjoh.nincore.api.exceptions.ValidationException;
 import me.ninjoh.nincore.api.exceptions.validationexceptions.InvalidCommandSenderException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -22,39 +21,27 @@ public class KingdomKitsBindCmd extends NinSubCommandExecutor
     @Override
     public void execute(CommandSender sender, String[] strings) throws ValidationException, TechnicalException
     {
-        if (sender instanceof Player)
-        {
-            // Make item in player's hand soulbound.
-            Player p = (Player) sender;
+        if (!(sender instanceof Player)) throw new InvalidCommandSenderException(sender);
 
-            // Check if item isn't null
-            if (p.getItemInHand() == null)
-            {
-                return;
-            }
+        // Make item in player's hand soulbound.
+        Player p = (Player) sender;
 
-            // Check if item isn't already soulbound
-            if (ItemStackUtils.isSoulBound(p.getItemInHand()))
-            {
-                throw new ItemAlreadySoulboundException(sender);
-            }
+        // Check if item isn't null
+        if (p.getItemInHand() == null) return;
 
-            List<String> lore = Collections.singletonList("§6§oSoulbound");
-
-            ItemStack is = p.getItemInHand();
-            ItemMeta im = is.getItemMeta();
-
-            im.setLore(lore);
-            is.setItemMeta(im);
+        // Check if item isn't already soulbound
+        if (ItemStackUtils.isSoulBound(p.getItemInHand())) throw new ItemAlreadySoulboundException(sender);
 
 
-            sender.sendMessage(ChatColor.DARK_PURPLE + "§oMade item soulbound");
-        }
-        else if (sender instanceof ConsoleCommandSender)
-        {
-            ConsoleCommandSender consoleCommandSender = (ConsoleCommandSender) sender;
+        List<String> lore = Collections.singletonList("§6§oSoulbound");
 
-            throw new InvalidCommandSenderException(consoleCommandSender);
-        }
+        ItemStack is = p.getItemInHand();
+        ItemMeta im = is.getItemMeta();
+
+        im.setLore(lore);
+        is.setItemMeta(im);
+
+
+        sender.sendMessage(ChatColor.DARK_PURPLE + "§oMade item soulbound");
     }
 }
