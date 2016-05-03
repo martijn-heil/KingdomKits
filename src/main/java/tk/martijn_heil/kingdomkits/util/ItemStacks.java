@@ -13,36 +13,36 @@ public class ItemStacks
      */
     public static boolean isSoulBound(ItemStack item)
     {
-        return item.getItemMeta().getLore().contains("§6§oSoulbound");
+        return (item.getItemMeta().getLore() != null) && item.getItemMeta().getLore().contains("§6§oSoulbound");
     }
 
 
     public static boolean isUnbreakable(ItemStack item)
     {
-        return item.getItemMeta().getLore().contains("§6§oUnbreakable");
+        return (item.getItemMeta().getLore() != null) && item.getItemMeta().getLore().contains("§6§oUnbreakable");
     }
 
 
     public static boolean isUseAllowed(ItemStack item)
     {
-        return item.getItemMeta().getLore().contains("§6§oUse-Allowed");
+        return (item.getItemMeta().getLore() != null) && item.getItemMeta().getLore().contains("§6§oUse-Allowed");
     }
 
 
     public static boolean isCombatAllowed(ItemStack item)
     {
-        return item.getItemMeta().getLore().contains("§6§oCombat-Allowed");
+        return (item.getItemMeta().getLore() != null) && item.getItemMeta().getLore().contains("§6§oCombat-Allowed");
     }
 
 
     public static boolean isEquipAllowed(ItemStack item)
     {
-        return item.getItemMeta().getLore().contains("§6§oEquip-Allowed");
+        return (item.getItemMeta().getLore() != null) && item.getItemMeta().getLore().contains("§6§oEquip-Allowed");
     }
 
 
     public static boolean isConsumeAllowed(ItemStack item)
     {
-        return item.getItemMeta().getLore().contains("§6§oConsume-Allowed");
+        return (item.getItemMeta().getLore() != null) && item.getItemMeta().getLore().contains("§6§oConsume-Allowed");
     }
 }
