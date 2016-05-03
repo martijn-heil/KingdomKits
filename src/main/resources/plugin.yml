@@ -1,7 +1,7 @@
 name: KingdomKits
-version: 5.0.0
+version: ${project.version}
 author: Ninjoh
-main: KingdomKits
+main: tk.martijn_heil.kingdomkits.KingdomKits
 depend: [Essentials]
 softdepend: [Factions,MassiveCore]
 commands:

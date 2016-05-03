@@ -11,7 +11,7 @@
     <name>KingdomKits</name>
 
 
-    <groupId>me.ninjoh</groupId>
+    <groupId>tk.martijn_heil</groupId>
     <artifactId>KingdomKits</artifactId>
     <version>5.0.0-SNAPSHOT</version>
 
@@ -28,13 +28,23 @@
         </repository>
 
         <repository>
-            <id>local-repo</id>
-            <url>${local.maven.repository}</url>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+
+            <snapshots>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
         </repository>
 
     </repositories>
 
     <dependencies>
+
+        <dependency>
+            <groupId>tk.martijn-heil</groupId>
+            <artifactId>NinCore-API</artifactId>
+            <version>-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>com.massivecraft</groupId>
@@ -81,13 +91,6 @@
         </dependency>
 
         <dependency>
-            <groupId>me.ninjoh</groupId>
-            <artifactId>NinCore-API</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>LATEST</version>
@@ -97,20 +100,11 @@
     </dependencies>
 
     <build>
-        <finalName>KingdomKits</finalName>
-        <sourceDirectory>src/main/java</sourceDirectory>
-        <resources>
-            <resource>
-                <targetPath>.</targetPath>
-                <filtering>true</filtering>
-                <directory>${basedir}/src/main/resources/</directory>
-            </resource>
-        </resources>
         <plugins>
 
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>3.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -153,7 +147,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>2.1</version>
+                <version>2.4.3</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -173,12 +167,12 @@
 
                         <relocation>
                             <pattern>org.joda</pattern>
-                            <shadedPattern>me.Ninjoh.KingdomKits.common.org.joda</shadedPattern>
+                            <shadedPattern>tk.martijn_heil.kingdomkits.common.org.joda</shadedPattern>
                         </relocation>
 
                         <relocation>
                             <pattern>net.mcapi</pattern>
-                            <shadedPattern>me.Ninjoh.KingdomKits.common.net.mcapi</shadedPattern>
+                            <shadedPattern>tk.martijn_heil.kingdomkits.common.net.mcapi</shadedPattern>
                         </relocation>
 
                     </relocations>
@@ -232,6 +226,28 @@
             </plugin>
 
         </plugins>
+
+        <resources>
+
+            <!-- include plugin.yml -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>plugin.yml</include>
+                </includes>
+            </resource>
+
+            <!-- exclude everything else from filtering -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>plugin.yml</exclude>
+                </excludes>
+            </resource>
+
+        </resources>
     </build>
 
 </project>

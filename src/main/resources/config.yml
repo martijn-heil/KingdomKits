@@ -4,7 +4,7 @@
 # For further information see: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
 
 # Don't change this!
-configVersion: 4
+configVersion: 5
 
 # Interval in ticks for saving the data file.
 # NOTE: 1 second = 20 ticks
@@ -97,19 +97,13 @@ crafting:
   - 'BOAT'
 
 # Soulbound section
-soulbound:
+classes:
 
-  # Make soulbound items undamagable/unbreakable?
-  soulboundItemsCannotBeDamaged: true
+  # Enable classes?
+  enable: false
 
-  # Prevent people from using weapons wich aren't soulbound..
-  # Includes swords and bows (NOTE: Does not include axes!)
-  preventNonSoulboundWeaponUsage: true
-
-  # Prevent people from using axes wich aren't soublund against
-  # entities (players, animals, monsters, etc).
-  preventNonSoulboundAxeUsage: true
-
+  # Should the player's class kit be given upon respawn?
+  giveKitOnRespawn: true
 
   # Default class for players
   defaultClass: 'footsoldier'
@@ -120,6 +114,7 @@ soulbound:
 
   # If a player changes faction; should his
   # player class be reset to the default player class?
+  # Note: Only works if factions integration is enabled.
   setPlayerClassToDefaultOnFactionChange: true
 
 
@@ -130,9 +125,9 @@ soulbound:
   # You should not include a leading slash in any commands executed on respawn.
   # You may use variables in commandsExeCutedOnPlayerRespawn. You may use the following variables;
   #
-  # {player_name} | The player's Minecraft username.
-  # {player_uuid} | The player's uuid.
-  # {player_displayname} | The player's displayname.
+  # {player_name}         | The player's Minecraft username.
+  # {player_uuid}         | The player's uuid.
+  # {player_displayname}  | The player's displayname.
   classes:
     footsoldier:
       kitName: 'footsoldier'
@@ -182,6 +177,104 @@ usage:
   blacklistedItems: # Items wich cannot be used (right mouse button).
   - 'BOAT'
   - 'ENDER_PEARL'
+
+
+# You should not include a leading slash in any commands.
+# You may use variables in commandsExeCutedOnPlayerRespawn. You may use the following variables;
+#
+# {player_name}         | The player's Minecraft username.
+# {player_uuid}         | The player's uuid.
+# {player_displayname}  | The player's displayname.
+commandsExecutedOnPlayerFirstJoin: []
+
+
+# This is a list of categories of items which can only be used for certain things if they have a certain property.
+#
+# Set use-allowed of a category to true to disable USING those items unless the item is use-allowed.
+# Set combat-allowed of a category to true to disable HITTING ENTITIES with those items unless the item is combat-allowed.
+# Set equip-allowed of a category to true to disable EQUIPPING those items unless the item is equip-allowed.
+# Set mine-allowed of a category to true to disable MINING using those items unless the item is mine-allowed.
+# Set consume-allowed of a category to true to disable EATING those items unless the item is eat-allowed.
+#
+# You may add more categories to this list.
+# The items list in each category should contain a list of items which this category includes.
+allowed:
+
+  swords:
+    items:
+      - 'WOOD_SWORD'
+      - 'STONE_SWORD'
+      - 'GOLD_SWORD'
+      - 'IRON_SWORD'
+      - 'DIAMOND_SWORD'
+
+    require:
+      use-allowed: false
+      combat-allowed: false
+      equip-allowed: false
+      mine-allowed: false
+      consume-allowed: false
+
+  axes:
+    items:
+      - 'WOOD_AXE'
+      - 'STONE_AXE'
+      - 'GOLD_AXE'
+      - 'IRON_AXE'
+      - 'DIAMOND_AXE'
+
+    require:
+      use-allowed: false
+      combat-allowed: false
+      equip-allowed: false
+      mine-allowed: false
+      consume-allowed: false
+
+  hoes:
+    items:
+      - 'WOOD_HOE'
+      - 'STONE_HOE'
+      - 'GOLD_HOE'
+      - 'IRON_HOE'
+      - 'DIAMOND_HOE'
+
+    require:
+      use-unique: false
+      combat-allowed: false
+      equip-allowed: false
+      mine-allowed: false
+      consume-allowed: false
+
+  shovels:
+    items:
+      - 'WOOD_SPADE'
+      - 'STONE_SPADE'
+      - 'GOLD_SPADE'
+      - 'IRON_SPADE'
+      - 'DIAMOND_SPADE'
+
+    require:
+      use-allowed: false
+      combat-allowed: false
+      equip-allowed: false
+      mine-allowed: false
+      consume-allowed: false
+
+  pickaxes:
+    items:
+      - 'WOOD_PICKAXE'
+      - 'STONE_PICKAXE'
+      - 'GOLD_PICKAXE'
+      - 'IRON_PICKAXE'
+      - 'DIAMOND_PICKAXE'
+
+    require:
+      use-allowed: false
+      combat-allowed: false
+      equip-allowed: false
+      mine-allowed: false
+      consume-allowed: false
+
 
 # Prevent players from flying with the elytra?
 preventElytra: false
