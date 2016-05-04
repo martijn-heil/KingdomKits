@@ -53,6 +53,7 @@ public class IllegalActionsModule extends CoreModule implements Listener
     @Override
     public void onEnable()
     {
+        this.getLogger().info("Registering event handlers..");
         Bukkit.getPluginManager().registerEvents(this, this.getCore());
     }
 

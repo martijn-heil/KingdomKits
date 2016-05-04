@@ -5,7 +5,8 @@ import net.mcapi.uuid.ServerRegion;
 import net.mcapi.uuid.UUIDAPI;
 import org.bukkit.Bukkit;
 import org.joda.time.DateTimeZone;
-import tk.martijn_heil.kingdomkits.listeners.*;
+import tk.martijn_heil.kingdomkits.listeners.FactionEventsListener;
+import tk.martijn_heil.kingdomkits.listeners.PlayerListener;
 import tk.martijn_heil.kingdomkits.modules.*;
 import tk.martijn_heil.nincore.api.Core;
 import tk.martijn_heil.nincore.api.logging.LogColor;
@@ -45,10 +46,8 @@ public class KingdomKits extends Core
 
 
         // If data file doesn't exist, create it
-        if (!this.getDataManager().dataFileExists())
-        {
-            this.getDataManager().createDataFile();
-        }
+        if (!this.getDataManager().dataFileExists()) this.getDataManager().createDataFile();
+
 
         // Load data file
         this.getDataManager().loadDataFile();
@@ -59,12 +58,11 @@ public class KingdomKits extends Core
 
         // Register events
         this.getNinLogger().info("Registering event listeners..");
-        //getServer().getPluginManager().registerEvents(new ConsumeListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
 
-        if (useFactions) // If faction integration is enabled.
+        if (useFactions) // If faction integration is activated.
         {
-            this.getNinLogger().info("Faction integration is enabled, registering FactionEventsListener..");
+            this.getNinLogger().info("Faction integration is activated, registering FactionEventsListener..");
             getServer().getPluginManager().registerEvents(new FactionEventsListener(), this);
         }
 
@@ -94,6 +92,7 @@ public class KingdomKits extends Core
         }
 
         // This handler does not spam the console with request status messages. Furthermore it's exactly the same.
+        this.getNinLogger().info("Setting custom UUIDAPI handler..");
         UUIDAPI.setHandler(new MainUUIDAPIHandler());
 
         // UUID API Server region, either EU or US.
@@ -108,11 +107,9 @@ public class KingdomKits extends Core
         else
         {
             // Set UUID API region
-            UUIDAPI.setRegion(ServerRegion.valueOf(this.getConfig().getString("serverRegion")));
-            this.getNinLogger().config("UUID API Server region set to: " + this.getConfig().getString("serverRegion"));
+            UUIDAPI.setRegion(ServerRegion.valueOf(apiRegion));
+            this.getNinLogger().config("UUIDAPI Server region set to: " + apiRegion);
         }
-
-
 
 
         this.getNinLogger().info("Registering modules..");

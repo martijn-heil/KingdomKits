@@ -1,5 +1,6 @@
 package tk.martijn_heil.kingdomkits.modules;
 
+import org.bukkit.Bukkit;
 import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,6 +14,9 @@ import tk.martijn_heil.kingdomkits.util.Signs;
 import tk.martijn_heil.nincore.api.Core;
 import tk.martijn_heil.nincore.api.CoreModule;
 import tk.martijn_heil.nincore.api.entity.NinOnlinePlayer;
+import tk.martijn_heil.nincore.api.util.TranslationUtils;
+
+import java.util.ResourceBundle;
 
 /**
  * Handles all sign related operations and commands.
@@ -23,6 +27,14 @@ public class SignModule extends CoreModule implements Listener
     public SignModule(Core core)
     {
         super(core);
+    }
+
+
+    @Override
+    public void onEnable()
+    {
+        this.getLogger().info("Registering event handlers..");
+        Bukkit.getPluginManager().registerEvents(this, this.getCore());
     }
 
 
@@ -41,7 +53,10 @@ public class SignModule extends CoreModule implements Listener
         {
             if(!PlayerClass.PlayerClassExists(ks.getValue()))
             {
-                NinOnlinePlayer.fromPlayer(e.getPlayer()).sendError("That player class does not exist.");
+                NinOnlinePlayer np = NinOnlinePlayer.fromPlayer(e.getPlayer());
+
+                np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang",
+                        np.getLocale()), "commandError.invalidPlayerClass"));
                 return;
             }
 
