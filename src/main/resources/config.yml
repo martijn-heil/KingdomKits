@@ -6,13 +6,16 @@
 # Don't change this!
 configVersion: 5
 
+
 # Interval in ticks for saving the data file.
 # NOTE: 1 second = 20 ticks
 # Default value is set to 6000 ticks, wich is 5 minutes exact.
 dataFileSaveInterval: 6000
 
+
 # Should localization be used?
 useLocalization: true
+
 
 # Enable integration with factions?
 # This is for the maxpercentage stuff with player classes.
@@ -22,7 +25,6 @@ useLocalization: true
 # If the factions plugin is not installed but this value is set to true, faction integration
 # will not be enabled since it is impossible to do that when factions isn't installed.
 enableFactionsIntegration: false
-
 
 
 # Server region used for UUID API interaction
@@ -103,6 +105,7 @@ classes:
   enable: false
 
   # Should the player's class kit be given upon respawn?
+  # This also gives a freshly joined player his kit.
   giveKitOnRespawn: true
 
   # Default class for players
@@ -167,6 +170,7 @@ potions:
 consume:
   blacklistedItems: # Items wich cannot be consumed (eat, drink, etc).
     - 'GOLDEN_APPLE'
+
 
 # Use the potions section above to disable
 # consuming of potions as well as

@@ -6,10 +6,7 @@ import net.mcapi.uuid.UUIDAPI;
 import org.bukkit.Bukkit;
 import org.joda.time.DateTimeZone;
 import tk.martijn_heil.kingdomkits.listeners.*;
-import tk.martijn_heil.kingdomkits.modules.CommandModule;
-import tk.martijn_heil.kingdomkits.modules.IllegalActionsModule;
-import tk.martijn_heil.kingdomkits.modules.SoulboundItemsModule;
-import tk.martijn_heil.kingdomkits.modules.UnbreakableItemsModule;
+import tk.martijn_heil.kingdomkits.modules.*;
 import tk.martijn_heil.nincore.api.Core;
 import tk.martijn_heil.nincore.api.logging.LogColor;
 
@@ -126,6 +123,7 @@ public class KingdomKits extends Core
         this.getModuleManager().addModule(new SoulboundItemsModule(this));
         this.getModuleManager().addModule(new UnbreakableItemsModule(this));
         this.getModuleManager().addModule(new CommandModule(this));
+        this.getModuleManager().addModule(new SignModule(this));
     }
 
 

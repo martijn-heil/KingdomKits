@@ -89,7 +89,7 @@ public class SoulboundItemsModule extends CoreModule implements Listener
                 !e.getInventory().getType().equals(InventoryType.CREATIVE) &&
                 !e.getInventory().getType().equals(InventoryType.CRAFTING))
         {
-            Inventory clicked = e.getClickedInventory();
+            Inventory clicked = e.getInventory();
             if (clicked == e.getWhoClicked().getInventory())
             {
                 // The item is being shift clicked from the bottom to the top
@@ -107,7 +107,7 @@ public class SoulboundItemsModule extends CoreModule implements Listener
 
 
         // Click the item, and then click it into the slot in the chest
-        Inventory clicked = e.getClickedInventory();
+        Inventory clicked = e.getInventory();
         if (clicked != e.getWhoClicked().getInventory())
         { // Note: !=
             // The cursor item is going into the top inventory

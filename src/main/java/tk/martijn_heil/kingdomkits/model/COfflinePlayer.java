@@ -97,6 +97,12 @@ public class COfflinePlayer
     }
 
 
+    public void setPlayerClass(PlayerClass playerClass)
+    {
+        this.setPlayerClass(playerClass.getName());
+    }
+
+
     /**
      * Move the player to the default player class.
      *

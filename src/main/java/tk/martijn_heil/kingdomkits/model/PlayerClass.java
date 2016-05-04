@@ -1,5 +1,6 @@
 package tk.martijn_heil.kingdomkits.model;
 
+import org.jetbrains.annotations.Contract;
 import tk.martijn_heil.kingdomkits.KingdomKits;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -91,6 +92,7 @@ public class PlayerClass
      *
      * @return The default player class.
      */
+    @Contract(" -> !null")
     public static PlayerClass getDefaultPlayerClass()
     {
         return new PlayerClass(config.getString("classes.defaultClass"));

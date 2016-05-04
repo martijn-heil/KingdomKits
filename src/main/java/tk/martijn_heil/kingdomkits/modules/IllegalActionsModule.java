@@ -157,12 +157,12 @@ public class IllegalActionsModule extends CoreModule implements Listener
     {
         List<String> items = this.getCore().getConfig().getStringList("crafting.blacklistedItems");
 
-        if (e.getCurrentItem() != null && e.getClickedInventory() != null)
+        if (e.getCurrentItem() != null && e.getInventory() != null)
         {
 
             // If clicked inventory is a WORKBENCH or CRAFTING inventory
-            if (e.getClickedInventory().getType().equals(InventoryType.WORKBENCH) ||
-                    e.getClickedInventory().getType().equals(InventoryType.CRAFTING))
+            if (e.getInventory().getType().equals(InventoryType.WORKBENCH) ||
+                    e.getInventory().getType().equals(InventoryType.CRAFTING))
             {
                 if(e.getSlotType().equals(InventoryType.SlotType.RESULT) &&
                         items.contains(e.getCurrentItem().getType().toString()))
@@ -178,11 +178,11 @@ public class IllegalActionsModule extends CoreModule implements Listener
 
         List<String> items2 = this.getCore().getConfig().getStringList("enchanting.blacklistedItems");
 
-        if (e.getCurrentItem() != null && e.getClickedInventory() != null)
+        if (e.getCurrentItem() != null && e.getInventory() != null)
         {
 
             // If clicked inventory is an anvil
-            if (e.getClickedInventory().getType().equals(InventoryType.ANVIL))
+            if (e.getInventory().getType().equals(InventoryType.ANVIL))
             {
                 // Foreach blacklisted item list
                 for (String item : items2)
@@ -190,7 +190,7 @@ public class IllegalActionsModule extends CoreModule implements Listener
                     // Cast material string to material object.
                     Material itemMaterial = Material.getMaterial(item);
 
-                    if (itemMaterial != null && e.getClickedInventory().contains(itemMaterial) &&
+                    if (itemMaterial != null && e.getInventory().contains(itemMaterial) &&
                             e.getSlotType().equals(InventoryType.SlotType.RESULT))
                     {
                         // If clicked inventory is an anvil && anvil contains enchanted book + a blacklisted item, cancel the event..

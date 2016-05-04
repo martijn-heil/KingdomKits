@@ -1,8 +1,10 @@
 package tk.martijn_heil.kingdomkits.model;
 
 
+import com.google.common.base.Preconditions;
 import lombok.Getter;
 import org.bukkit.Material;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -18,7 +20,7 @@ public class ItemCategory
     @Getter private final List<Material> items;
 
 
-    public ItemCategory(List<Material> items,
+    public ItemCategory(@NotNull List<Material> items,
                         boolean useAllowedRequired,
                         boolean combatAllowedRequired,
                         boolean equipAllowedRequired,
@@ -27,6 +29,8 @@ public class ItemCategory
                         boolean requireFireAllowed
                         )
     {
+        Preconditions.checkNotNull(items);
+
         this.useAllowedRequired = useAllowedRequired;
         this.combatAllowedRequired = combatAllowedRequired;
         this.equipAllowedRequired = equipAllowedRequired;
