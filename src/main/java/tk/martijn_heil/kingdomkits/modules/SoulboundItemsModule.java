@@ -185,7 +185,7 @@ public class SoulboundItemsModule extends CoreModule implements Listener
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerArmorStandManipulate(PlayerArmorStandManipulateEvent e)
     {
-        if (ItemStacks.isSoulBound(e.getPlayerItem()))
+        if (e.getPlayerItem() != null && ItemStacks.isSoulBound(e.getPlayerItem()))
         {
             e.setCancelled(true);
 
