@@ -41,12 +41,6 @@ public class COfflinePlayer
     }
 
 
-    public UUID getUuid()
-    {
-        return uuid;
-    }
-
-
     /**
      * Get a player's class
      *
@@ -58,7 +52,7 @@ public class COfflinePlayer
 
         if(playerClassname.equals("default"))
         {
-            return new PlayerClass(config.getString("soulbound.defaultClass"));
+            return new PlayerClass(config.getString("classes.defaultClass"));
         }
         else
         {
@@ -91,7 +85,7 @@ public class COfflinePlayer
         if(withCoolDown)
         {
             DateTime currentDateTime = new DateTime();
-            DateTime nextPossibleClassSwitchTime = currentDateTime.plusMinutes(config.getInt("soulbound.coolDownInMinutes"));
+            DateTime nextPossibleClassSwitchTime = currentDateTime.plusMinutes(config.getInt("classes.coolDownInMinutes"));
             data.set(uuid + ".nextPossibleClassSwitchTime", nextPossibleClassSwitchTime.toString());
         }
     }

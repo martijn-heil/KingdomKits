@@ -32,7 +32,7 @@ public class PlayerListener implements Listener
         // Add player to data file if he isn't yet added.
         if (!data.isSet(playerUUID))
         {
-            data.set(playerUUID + ".class", "default");
+            data.set(playerUUID + ".class", defaultClassName);
             data.set(playerUUID + ".lastSeenName", e.getPlayer().getName());
             data.set(playerUUID + ".nextPossibleClassSwitchTime", null);
 
