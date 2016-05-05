@@ -22,7 +22,7 @@ public class PlayerClass
     public PlayerClass(String className)
     {
         name = className;
-        this.classSection = KingdomKits.getInstance().getConfig().getConfigurationSection("soulbound.classes." + name);
+        this.classSection = KingdomKits.getInstance().getConfig().getConfigurationSection("classes.classes." + name);
     }
 
     /**

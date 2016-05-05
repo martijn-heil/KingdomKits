@@ -61,9 +61,9 @@ public class PlayerListener implements Listener
             if (!PlayerClass.PlayerClassExists(data.getString(playerUUID + ".class")))
             {
                 // If player's class doesn't exist, put him back in the default class.
-                COnlinePlayer ninOnlinePlayer = new COnlinePlayer(e.getPlayer().getUniqueId());
+                COnlinePlayer cOnlinePlayer = new COnlinePlayer(e.getPlayer().getUniqueId());
 
-                ninOnlinePlayer.moveToDefaultPlayerClass();
+                cOnlinePlayer.moveToDefaultPlayerClass();
             }
         }
     }

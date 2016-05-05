@@ -16,41 +16,41 @@ public class ItemStacks
     public static boolean isSoulBound(@NotNull ItemStack item)
     {
         Preconditions.checkNotNull(item, "item can not be null.");
-        return (item.getItemMeta().getLore() != null) && item.getItemMeta().getLore().contains("§6§oSoulbound");
+        return (item.getItemMeta() != null) && (item.getItemMeta().getLore() != null) && item.getItemMeta().getLore().contains("§6§oSoulbound");
     }
 
 
     public static boolean isUnbreakable(@NotNull ItemStack item)
     {
         Preconditions.checkNotNull(item, "item can not be null.");
-        return (item.getItemMeta().getLore() != null) && item.getItemMeta().getLore().contains("§6§oUnbreakable");
+        return (item.getItemMeta().getLore() != null) && (item.getItemMeta().getLore() != null) && item.getItemMeta().getLore().contains("§6§oUnbreakable");
     }
 
 
     public static boolean isUseAllowed(@NotNull ItemStack item)
     {
         Preconditions.checkNotNull(item, "item can not be null.");
-        return (item.getItemMeta().getLore() != null) && item.getItemMeta().getLore().contains("§6§oUse-Allowed");
+        return (item.getItemMeta().getLore() != null) && (item.getItemMeta().getLore() != null) && item.getItemMeta().getLore().contains("§6§oUse-Allowed");
     }
 
 
     public static boolean isCombatAllowed(@NotNull ItemStack item)
     {
         Preconditions.checkNotNull(item, "item can not be null.");
-        return (item.getItemMeta().getLore() != null) && item.getItemMeta().getLore().contains("§6§oCombat-Allowed");
+        return (item.getItemMeta().getLore() != null) && (item.getItemMeta().getLore() != null) && item.getItemMeta().getLore().contains("§6§oCombat-Allowed");
     }
 
 
     public static boolean isEquipAllowed(@NotNull ItemStack item)
     {
         Preconditions.checkNotNull(item, "item can not be null.");
-        return (item.getItemMeta().getLore() != null) && item.getItemMeta().getLore().contains("§6§oEquip-Allowed");
+        return (item.getItemMeta().getLore() != null) && (item.getItemMeta().getLore() != null) && item.getItemMeta().getLore().contains("§6§oEquip-Allowed");
     }
 
 
     public static boolean isConsumeAllowed(@NotNull ItemStack item)
     {
         Preconditions.checkNotNull(item, "item can not be null.");
-        return (item.getItemMeta().getLore() != null) && item.getItemMeta().getLore().contains("§6§oConsume-Allowed");
+        return (item.getItemMeta().getLore() != null) && (item.getItemMeta().getLore() != null) && item.getItemMeta().getLore().contains("§6§oConsume-Allowed");
     }
 }

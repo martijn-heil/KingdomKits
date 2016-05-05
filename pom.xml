@@ -44,6 +44,7 @@
             <groupId>tk.martijn-heil</groupId>
             <artifactId>NinCore-API</artifactId>
             <version>-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -65,6 +66,7 @@
             <groupId>net.mcapi.uuid</groupId>
             <artifactId>uuid-java</artifactId>
             <version>1.1.2</version>
+            <scope>compile</scope>
         </dependency>
 
         <!--Spigot API-->
@@ -88,6 +90,7 @@
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>2.9.2</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
@@ -159,9 +162,7 @@
                 <configuration>
                     <artifactSet>
                         <includes>
-                            <include>net.mcapi.uuid:uuid-java</include>
-                            <include>joda-time:joda-time</include>
-                            <include>net.mcapi.uuid:uuid-java</include>
+                            <include>*:*</include>
                         </includes>
                     </artifactSet>
                     <relocations>
