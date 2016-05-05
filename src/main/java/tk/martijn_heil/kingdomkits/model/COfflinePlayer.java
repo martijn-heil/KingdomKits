@@ -1,12 +1,14 @@
 package tk.martijn_heil.kingdomkits.model;
 
 import com.massivecraft.factions.entity.MPlayer;
+import org.bukkit.inventory.ItemStack;
 import tk.martijn_heil.kingdomkits.KingdomKits;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.joda.time.DateTime;
+import tk.martijn_heil.kingdomkits.util.ItemStacks;
 import tk.martijn_heil.nincore.api.entity.NinOfflinePlayer;
 
 import java.util.List;
@@ -68,7 +70,7 @@ public class COfflinePlayer
      */
     public void setPlayerClass(String className)
     {
-        data.set(uuid + ".class", className);
+        this.setPlayerClass(new PlayerClass(className), true);
     }
 
 
@@ -80,7 +82,31 @@ public class COfflinePlayer
      */
     public void setPlayerClass(String className, boolean withCoolDown)
     {
-        data.set(uuid + ".class", className);
+        this.setPlayerClass(new PlayerClass(className), withCoolDown);
+    }
+
+
+    @Deprecated
+    public void setPlayerClass(PlayerClass playerClass)
+    {
+        this.setPlayerClass(playerClass, true);
+    }
+
+
+    public void setPlayerClass(PlayerClass playerClass, boolean withCoolDown)
+    {
+        if(this.toOfflinePlayer().isOnline())
+        {
+            for(ItemStack i : this.toOfflinePlayer().getPlayer().getInventory().getContents())
+            {
+                if(ItemStacks.isPartOfKit(i, this.getPlayerClass().getName()))
+                {
+                    this.toOfflinePlayer().getPlayer().getInventory().remove(i);
+                }
+            }
+        }
+
+        data.set(uuid + ".class", playerClass.getName());
 
         if(withCoolDown)
         {
@@ -88,12 +114,8 @@ public class COfflinePlayer
             DateTime nextPossibleClassSwitchTime = currentDateTime.plusMinutes(config.getInt("classes.coolDownInMinutes"));
             data.set(uuid + ".nextPossibleClassSwitchTime", nextPossibleClassSwitchTime.toString());
         }
-    }
 
-
-    public void setPlayerClass(PlayerClass playerClass)
-    {
-        this.setPlayerClass(playerClass.getName());
+        if(this.toOfflinePlayer().isOnline()) new COnlinePlayer(this.uuid).givePlayerClassKit();
     }
 
 
@@ -103,7 +125,17 @@ public class COfflinePlayer
      */
     public void moveToDefaultPlayerClass()
     {
-        data.set(uuid + ".class", "default");
+        this.setPlayerClass(PlayerClass.getDefaultPlayerClass(), false);
+    }
+
+
+    /**
+     * Move the player to the default player class.
+     *
+     */
+    public void moveToDefaultPlayerClass(boolean withCoolDown)
+    {
+        this.setPlayerClass(PlayerClass.getDefaultPlayerClass(), withCoolDown);
     }
 
 

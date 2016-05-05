@@ -25,8 +25,8 @@ public class PlayerListener implements Listener
     public void onPlayerJoin(PlayerJoinEvent e)
     {
         String playerUUID = e.getPlayer().getUniqueId().toString();
-
-        String defaultClassName = config.getString("soulbound.defaultClass");
+        COnlinePlayer cp = new COnlinePlayer(e.getPlayer().getUniqueId());
+        String defaultClassName = config.getString("classes.defaultClass");
 
 
         // Add player to data file if he isn't yet added.
@@ -41,8 +41,7 @@ public class PlayerListener implements Listener
             // Give player default class kit
             if(config.getBoolean("classes.enabled") && config.getBoolean("classes.giveKitOnRespawn"))
             {
-                ServerUtils.dispatchCommand("essentials:kit " + config.getString("soulbound.classes." +
-                        defaultClassName + ".kitName") + " " + e.getPlayer().getName());
+                cp.givePlayerClassKit();
             }
 
 
@@ -71,17 +70,16 @@ public class PlayerListener implements Listener
     @EventHandler(priority = EventPriority.HIGHEST) // Give the player his class kit on respawn..
     public void onPlayerRespawn(PlayerRespawnEvent e)
     {
-        COnlinePlayer ninOnlinePlayer = new COnlinePlayer(e.getPlayer().getUniqueId());
+        COnlinePlayer cOnlinePlayer = new COnlinePlayer(e.getPlayer().getUniqueId());
 
 
         if(KingdomKits.getInstance().getDataManager().getData().getBoolean("classes.enable") &&
                 KingdomKits.getInstance().getDataManager().getData().getBoolean("classes.giveKitOnRespawn"))
         {
-            ServerUtils.dispatchCommand("essentials:kit " +
-                    ninOnlinePlayer.getPlayerClass().getKitName() + " " + e.getPlayer().getName());
+            cOnlinePlayer.givePlayerClassKit();
         }
 
-        for (String cmd : ninOnlinePlayer.getPlayerClass().getCmdsExecutedOnPlayerRespawn())
+        for (String cmd : cOnlinePlayer.getPlayerClass().getCmdsExecutedOnPlayerRespawn())
         {
             cmd = Commands.parsePlayerVars(cmd, e.getPlayer());
             ServerUtils.dispatchCommand(cmd);

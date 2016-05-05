@@ -27,7 +27,7 @@ public class FactionEventsListener implements Listener
     public void onFactionsMembershipChange(EventFactionsMembershipChange e)
     {
         // If a player's class should not be reset to default on faction change.
-        if(!config.getBoolean("soulbound.setPlayerClassToDefaultOnFactionChange"))
+        if(!config.getBoolean("classes.setPlayerClassToDefaultOnFactionChange"))
         {
             return;
         }

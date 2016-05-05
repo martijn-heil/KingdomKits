@@ -98,7 +98,7 @@ crafting:
   - 'GOLDEN_APPLE'
   - 'BOAT'
 
-# Soulbound section
+# Classes section
 classes:
 
   # Enable classes?
