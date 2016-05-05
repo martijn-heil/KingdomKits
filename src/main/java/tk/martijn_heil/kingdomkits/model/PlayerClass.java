@@ -1,6 +1,7 @@
 package tk.martijn_heil.kingdomkits.model;
 
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nullable;
 import tk.martijn_heil.kingdomkits.KingdomKits;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -81,9 +82,10 @@ public class PlayerClass
      * @param className The player class name to check for.
      * @return true if this player class exists.
      */
-    public static boolean PlayerClassExists(String className)
+    @Contract("null -> false")
+    public static boolean PlayerClassExists(@Nullable String className)
     {
-        return config.getConfigurationSection("classes.classes").getKeys(false).contains(className);
+        return (className != null) && config.getConfigurationSection("classes.classes").getKeys(false).contains(className);
     }
 
 

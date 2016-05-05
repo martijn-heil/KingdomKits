@@ -69,13 +69,14 @@ public class SignModule extends CoreModule implements Listener
     public void onSignChange(SignChangeEvent e)
     {
         if(e.getPlayer().hasPermission("kingdomkits.signs.create.switchclass") &&
-                Signs.isKingdomKitsSign(e.getLine(0)))
+                e.getLine(0).equalsIgnoreCase("[KingdomKits]"))
         {
-            if(!SignActionType.isValidSignActionType(e.getLine(1)))
+            if(!SignActionType.isValidSignActionType(e.getLine(0)))
             {
                 NinOnlinePlayer.fromPlayer(e.getPlayer()).sendError("Invalid sign action type.");
                 return;
             }
+
 
             // Validation passed, make it a kingdomkits sign.
             e.setLine(0, Signs.getKingdomKitsPrefix());
