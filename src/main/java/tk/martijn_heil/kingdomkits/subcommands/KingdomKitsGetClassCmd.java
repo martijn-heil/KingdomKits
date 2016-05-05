@@ -77,7 +77,7 @@ public class KingdomKitsGetClassCmd extends NinSubCommandExecutor
             {
                 // Get default class name and send the player the message.
                 sender.sendMessage(ChatColor.DARK_GRAY + cOfflinePlayer.toOfflinePlayer().getName() + ChatColor.YELLOW + " has the " +
-                        ChatColor.DARK_GRAY + KingdomKits.getInstance().getConfig().getString("soulbound.defaultClass") +
+                        ChatColor.DARK_GRAY + KingdomKits.getInstance().getConfig().getString("classes.defaultClass") +
                         ChatColor.YELLOW + " class");
             }
             else

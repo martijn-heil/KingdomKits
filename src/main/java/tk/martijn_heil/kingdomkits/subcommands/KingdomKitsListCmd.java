@@ -21,7 +21,7 @@ public class KingdomKitsListCmd extends NinSubCommandExecutor
         Locale locale = NinCommandSender.fromCommandSender(sender).getLocale();
 
 
-        ConfigurationSection playerClasses = KingdomKits.getInstance().getConfig().getConfigurationSection("soulbound.classes");
+        ConfigurationSection playerClasses = KingdomKits.getInstance().getConfig().getConfigurationSection("classes.classes");
 
         final ResourceBundle mainMsgs = ResourceBundle.getBundle("lang.mainMsgs", locale);
 
