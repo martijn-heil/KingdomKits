@@ -43,6 +43,7 @@ public class SignModule extends CoreModule implements Listener
     {
         if(e.getClickedBlock() == null) return;
         if(!(e.getClickedBlock() instanceof Sign)) return;
+
         Sign sign = (Sign) e.getClickedBlock();
 
         if(!Signs.isKingdomKitsSign(sign)) return;
@@ -71,7 +72,7 @@ public class SignModule extends CoreModule implements Listener
         if(e.getPlayer().hasPermission("kingdomkits.signs.create.switchclass") &&
                 e.getLine(0).equalsIgnoreCase("[KingdomKits]"))
         {
-            if(!SignActionType.isValidSignActionType(e.getLine(0)))
+            if(!SignActionType.isValidSignActionType(e.getLine(1)))
             {
                 NinOnlinePlayer.fromPlayer(e.getPlayer()).sendError("Invalid sign action type.");
                 return;

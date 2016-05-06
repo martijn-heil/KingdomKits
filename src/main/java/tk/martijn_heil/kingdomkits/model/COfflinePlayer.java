@@ -1,13 +1,14 @@
 package tk.martijn_heil.kingdomkits.model;
 
+import com.google.common.base.Preconditions;
 import com.massivecraft.factions.entity.MPlayer;
-import org.bukkit.inventory.ItemStack;
-import tk.martijn_heil.kingdomkits.KingdomKits;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
+import tk.martijn_heil.kingdomkits.KingdomKits;
 import tk.martijn_heil.kingdomkits.util.ItemStacks;
 import tk.martijn_heil.nincore.api.entity.NinOfflinePlayer;
 
@@ -17,29 +18,41 @@ import java.util.UUID;
 
 public class COfflinePlayer
 {
-    private JavaPlugin plugin = KingdomKits.getInstance();
     private FileConfiguration data = KingdomKits.getInstance().getDataManager().getData();
     private FileConfiguration config = KingdomKits.getInstance().getConfig();
 
-    UUID uuid;
+    private UUID uuid;
+    private OfflinePlayer offlinePlayer;
 
 
 
-    public COfflinePlayer(UUID uuid)
+    public COfflinePlayer(@NotNull UUID uuid)
     {
+        Preconditions.checkNotNull(uuid);
+
+        this.offlinePlayer = Bukkit.getOfflinePlayer(uuid);
         this.uuid = uuid;
+    }
+
+
+    public COfflinePlayer(@NotNull OfflinePlayer p)
+    {
+        Preconditions.checkNotNull(p);
+
+        this.offlinePlayer = p;
+        this.uuid = p.getUniqueId();
     }
 
 
     public NinOfflinePlayer toNinOfflinePlayer()
     {
-        return NinOfflinePlayer.fromOfflinePlayer(Bukkit.getOfflinePlayer(uuid));
+        return NinOfflinePlayer.fromOfflinePlayer(this.offlinePlayer);
     }
 
 
     public OfflinePlayer toOfflinePlayer()
     {
-        return plugin.getServer().getOfflinePlayer(uuid);
+        return this.offlinePlayer;
     }
 
 
@@ -125,7 +138,7 @@ public class COfflinePlayer
      */
     public void moveToDefaultPlayerClass()
     {
-        this.setPlayerClass(PlayerClass.getDefaultPlayerClass(), false);
+        this.setPlayerClass(PlayerClass.getDefault(), false);
     }
 
 
@@ -135,7 +148,7 @@ public class COfflinePlayer
      */
     public void moveToDefaultPlayerClass(boolean withCoolDown)
     {
-        this.setPlayerClass(PlayerClass.getDefaultPlayerClass(), withCoolDown);
+        this.setPlayerClass(PlayerClass.getDefault(), withCoolDown);
     }
 
 

@@ -95,7 +95,7 @@ public class PlayerClass
      * @return The default player class.
      */
     @Contract(" -> !null")
-    public static PlayerClass getDefaultPlayerClass()
+    public static PlayerClass getDefault()
     {
         return new PlayerClass(config.getString("classes.defaultClass"));
     }

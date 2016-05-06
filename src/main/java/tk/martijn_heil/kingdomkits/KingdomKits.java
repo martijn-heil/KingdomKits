@@ -6,7 +6,7 @@ import net.mcapi.uuid.UUIDAPI;
 import org.bukkit.Bukkit;
 import org.joda.time.DateTimeZone;
 import tk.martijn_heil.kingdomkits.listeners.FactionEventsListener;
-import tk.martijn_heil.kingdomkits.listeners.PlayerListener;
+import tk.martijn_heil.kingdomkits.listeners.PlayerModule;
 import tk.martijn_heil.kingdomkits.modules.*;
 import tk.martijn_heil.nincore.api.Core;
 import tk.martijn_heil.nincore.api.logging.LogColor;
@@ -58,7 +58,7 @@ public class KingdomKits extends Core
 
         // Register events
         this.getNinLogger().info("Registering event listeners..");
-        getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerModule(this), this);
 
         if (useFactions) // If faction integration is activated.
         {

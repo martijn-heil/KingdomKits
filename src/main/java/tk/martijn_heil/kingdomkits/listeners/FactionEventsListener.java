@@ -45,7 +45,7 @@ public class FactionEventsListener implements Listener
         formatter.setLocale(locale);
 
 
-        Object[] messageArguments = {PlayerClass.getDefaultPlayerClass().getName()};
+        Object[] messageArguments = {PlayerClass.getDefault().getName()};
         formatter.applyPattern(messages.getString("eventError.playerClassChangeDueToFactionChange"));
         String finalMessage = formatter.format(messageArguments);
 

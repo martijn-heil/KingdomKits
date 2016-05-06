@@ -102,7 +102,7 @@ crafting:
 classes:
 
   # Enable classes?
-  enable: false
+  enabled: false
 
   # Should the player's class kit be given upon respawn?
   # This also gives a freshly joined player his kit.

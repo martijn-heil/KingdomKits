@@ -97,8 +97,8 @@ public class IllegalActionsModule extends CoreModule implements Listener
             weapons.add(Material.DIAMOND_SWORD);
 
 
-            if (player.getItemInHand() != null && weapons.contains(player.getItemInHand().getType()) &&
-                    !ItemStacks.isSoulBound(player.getItemInHand()))
+            if (player.getInventory().getItemInMainHand() != null && weapons.contains(player.getInventory().getItemInMainHand().getType()) &&
+                    !ItemStacks.isSoulBound(player.getInventory().getItemInMainHand()))
             {
                 e.setCancelled(true);
 
@@ -132,7 +132,7 @@ public class IllegalActionsModule extends CoreModule implements Listener
                 NinOnlinePlayer np = NinOnlinePlayer.fromPlayer(player);
 
                 np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs",
-                        np.getMinecraftLocale().toLocale()), "eventError.cancelledAttackWithWeapon"));
+                        np.getLocale()), "eventError.cancelledAttackWithWeapon"));
             }
         }
 
@@ -147,7 +147,8 @@ public class IllegalActionsModule extends CoreModule implements Listener
             e.setCancelled(true);
 
             NinOnlinePlayer p = NinOnlinePlayer.fromPlayer((Player) e.getEntity());
-            p.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs"), "eventError.cancelledElytra"));
+            p.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs", p.getLocale()),
+                    "eventError.cancelledElytra"));
         }
     }
 
@@ -395,9 +396,9 @@ public class IllegalActionsModule extends CoreModule implements Listener
     @EventHandler
     public void onMine(BlockBreakEvent e)
     {
-        ItemCategory cat = ItemCategories.getCategory(e.getPlayer().getItemInHand().getType());
+        ItemCategory cat = ItemCategories.getCategory(e.getPlayer().getInventory().getItemInMainHand().getType());
 
-        if(cat != null && cat.isEquipAllowedRequired() && !ItemStacks.isEquipAllowed(e.getPlayer().getItemInHand()))
+        if(cat != null && cat.isEquipAllowedRequired() && !ItemStacks.isEquipAllowed(e.getPlayer().getInventory().getItemInMainHand()))
         {
             e.setCancelled(true);
 
