@@ -6,7 +6,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.plugin.Plugin;
 import tk.martijn_heil.kingdomkits.KingdomKits;
 import tk.martijn_heil.kingdomkits.model.COnlinePlayer;
 import tk.martijn_heil.kingdomkits.model.PlayerClass;
@@ -18,7 +17,6 @@ public class PlayerListener implements Listener
 {
     public static FileConfiguration data = KingdomKits.getInstance().getDataManager().getData();
     public static FileConfiguration config = KingdomKits.getInstance().getConfig();
-    private Plugin plugin = KingdomKits.getInstance();
 
 
     @EventHandler // Give the player his class kit if the joins for the first time.
@@ -29,14 +27,13 @@ public class PlayerListener implements Listener
         String defaultClassName = config.getString("classes.defaultClass");
 
 
-        // Add player to data file if he isn't yet added.
-        if (!data.isSet(playerUUID))
+        if(!data.isSet(playerUUID)) // he's new.
         {
+            KingdomKits.getInstance().getNinLogger().info("Creating new data entry for player: " + e.getPlayer().getName() + " (" + playerUUID + ")");
+
             data.set(playerUUID + ".class", defaultClassName);
             data.set(playerUUID + ".lastSeenName", e.getPlayer().getName());
             data.set(playerUUID + ".nextPossibleClassSwitchTime", null);
-
-            plugin.getLogger().info("Creating new data entry for player: " + e.getPlayer().getName() + " (" + playerUUID + ")");
 
             // Give player default class kit
             if(config.getBoolean("classes.enabled") && config.getBoolean("classes.giveKitOnRespawn"))
@@ -44,28 +41,44 @@ public class PlayerListener implements Listener
                 cp.givePlayerClassKit();
             }
 
-
             for (String cmd : data.getStringList("commandsExecutedOnPlayerFirstJoin"))
             {
                 cmd = Commands.parsePlayerVars(cmd, e.getPlayer());
                 ServerUtils.dispatchCommand(cmd);
             }
         }
-        else if (data.isSet(playerUUID))
+
+
+        if(!data.isSet(playerUUID + ".class"))
         {
-            // Update last seen name.
+            data.set(playerUUID + ".class", defaultClassName);
+        }
+
+
+        if(!data.isSet(playerUUID + ".lastSeenName"))
+        {
             data.set(playerUUID + ".lastSeenName", e.getPlayer().getName());
+        }
 
-            // Check if player's class still exists
-            if (!PlayerClass.PlayerClassExists(data.getString(playerUUID + ".class")))
-            {
-                // If player's class doesn't exist, put him back in the default class.
-                COnlinePlayer cOnlinePlayer = new COnlinePlayer(e.getPlayer().getUniqueId());
 
-                cOnlinePlayer.moveToDefaultPlayerClass();
-            }
+        if(!data.isSet(playerUUID + ".nextPossibleClassSwitchTime"))
+        {
+            data.set(playerUUID + ".nextPossibleClassSwitchTime", null);
+        }
+
+        // Update last seen name.
+        data.set(playerUUID + ".lastSeenName", e.getPlayer().getName());
+
+        // Check if player's class still exists
+        if (!PlayerClass.PlayerClassExists(data.getString(playerUUID + ".class")))
+        {
+            // If player's class doesn't exist, put him back in the default class.
+            COnlinePlayer cOnlinePlayer = new COnlinePlayer(e.getPlayer().getUniqueId());
+
+            cOnlinePlayer.moveToDefaultPlayerClass();
         }
     }
+
 
     @EventHandler(priority = EventPriority.HIGHEST) // Give the player his class kit on respawn..
     public void onPlayerRespawn(PlayerRespawnEvent e)
