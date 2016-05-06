@@ -56,7 +56,7 @@ public class SignModule extends CoreModule implements Listener
             {
                 NinOnlinePlayer np = NinOnlinePlayer.fromPlayer(e.getPlayer());
 
-                np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang",
+                np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs",
                         np.getLocale()), "commandError.invalidPlayerClass"));
                 return;
             }
@@ -65,6 +65,7 @@ public class SignModule extends CoreModule implements Listener
             new COnlinePlayer(e.getPlayer().getUniqueId()).setPlayerClass(pc);
         }
     }
+
 
     @EventHandler
     public void onSignChange(SignChangeEvent e)

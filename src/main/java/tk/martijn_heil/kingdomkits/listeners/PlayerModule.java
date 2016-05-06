@@ -55,7 +55,7 @@ public class PlayerModule extends CoreModule implements Listener
         COnlinePlayer cOnlinePlayer = new COnlinePlayer(e.getPlayer().getUniqueId());
 
 
-        if(KingdomKits.getInstance().getDataManager().getData().getBoolean("classes.enable") &&
+        if(KingdomKits.getInstance().getDataManager().getData().getBoolean("classes.enabled") &&
                 KingdomKits.getInstance().getDataManager().getData().getBoolean("classes.giveKitOnRespawn"))
         {
             cOnlinePlayer.givePlayerClassKit();

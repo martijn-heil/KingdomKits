@@ -361,7 +361,8 @@ public class IllegalActionsModule extends CoreModule implements Listener
 
         ItemCategory cat = ItemCategories.getCategory(((Player) e.getDamager()).getItemInHand().getType());
 
-        if(cat != null && cat.isCombatAllowedRequired())
+        if(cat != null && cat.isCombatAllowedRequired() &&
+                !ItemStacks.isCombatAllowed(((Player) e.getDamager()).getInventory().getItemInMainHand()))
         {
             e.setCancelled(true);
 
@@ -376,6 +377,7 @@ public class IllegalActionsModule extends CoreModule implements Listener
     @EventHandler
     public void onEquip(ArmorEquipEvent e)
     {
+        if(e.getNewArmorPiece() == null) return;
         ItemCategory cat = ItemCategories.getCategory(e.getNewArmorPiece().getType());
 
         if(cat != null && cat.isEquipAllowedRequired() && !ItemStacks.isEquipAllowed(e.getNewArmorPiece()) &&

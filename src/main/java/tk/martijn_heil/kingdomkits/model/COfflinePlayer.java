@@ -6,11 +6,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import tk.martijn_heil.kingdomkits.KingdomKits;
-import tk.martijn_heil.kingdomkits.util.ItemStacks;
 import tk.martijn_heil.nincore.api.entity.NinOfflinePlayer;
 import tk.martijn_heil.nincore.api.entity.NinOnlinePlayer;
 import tk.martijn_heil.nincore.api.util.TranslationUtils;
@@ -106,7 +104,7 @@ public class COfflinePlayer
 
     public void setPlayerClass(PlayerClass playerClass, boolean withCoolDown)
     {
-        this.setPlayerClass(playerClass, withCoolDown, withCoolDown);
+        this.setPlayerClass(playerClass, withCoolDown, false);
     }
 
 
@@ -114,13 +112,7 @@ public class COfflinePlayer
     {
         if(this.toOfflinePlayer().isOnline())
         {
-            for(ItemStack i : this.toOfflinePlayer().getPlayer().getInventory().getContents())
-            {
-                if(ItemStacks.isPartOfKit(i, this.getPlayerClass().getName()))
-                {
-                    this.toOfflinePlayer().getPlayer().getInventory().remove(i);
-                }
-            }
+            ((COnlinePlayer) this).removePlayerClassKit();
         }
 
         data.set(uuid + ".class", playerClass.getName());
@@ -136,8 +128,13 @@ public class COfflinePlayer
         {
             new COnlinePlayer(this.uuid).givePlayerClassKit();
             NinOnlinePlayer np = NinOnlinePlayer.fromPlayer(this.toOfflinePlayer().getPlayer());
-            if(!silent) this.toOfflinePlayer().getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',
-                    TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.mainMsgs", np.getLocale()), "switchedPlayerClass")));
+
+            if(!silent)
+            {
+                this.toOfflinePlayer().getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',
+                        TranslationUtils.transWithArgs(ResourceBundle.getBundle("lang.mainMsgs", np.getLocale()),
+                                new Object[] {playerClass.getName()}, "switchedPlayerClass")));
+            }
         }
     }
 
