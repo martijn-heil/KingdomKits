@@ -44,7 +44,7 @@ public class PlayerClass
      */
     public String getKitName()
     {
-        return classSection.getString("kitname");
+        return classSection.getString("kitName");
     }
 
 

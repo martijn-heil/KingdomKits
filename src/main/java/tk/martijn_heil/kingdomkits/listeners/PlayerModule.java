@@ -30,17 +30,21 @@ public class PlayerModule extends CoreModule implements Listener
 
         Players.populateData(e.getPlayer());
 
-        for (String cmd : cp.getPlayerClass().getCmdsExecutedOnPlayerRespawn())
+        // Player is new.
+        if(!this.getCore().getDataManager().getData().isSet(e.getPlayer().getUniqueId().toString()))
         {
-            cmd = Commands.parsePlayerVars(cmd, e.getPlayer());
-            ServerUtils.dispatchCommand(cmd);
-        }
+            for (String cmd : cp.getPlayerClass().getCmdsExecutedOnPlayerRespawn())
+            {
+                cmd = Commands.parsePlayerVars(cmd, e.getPlayer());
+                ServerUtils.dispatchCommand(cmd);
+            }
 
-        // Give player default class kit
-        if(KingdomKits.getInstance().getConfig().getBoolean("classes.enabled") &&
-                KingdomKits.getInstance().getConfig().getBoolean("classes.giveKitOnRespawn"))
-        {
-            cp.givePlayerClassKit();
+            // Give player default class kit
+            if(KingdomKits.getInstance().getConfig().getBoolean("classes.enabled") &&
+                    KingdomKits.getInstance().getConfig().getBoolean("classes.giveKitOnRespawn"))
+            {
+                cp.givePlayerClassKit();
+            }
         }
     }
 

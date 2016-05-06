@@ -3,6 +3,7 @@ package tk.martijn_heil.kingdomkits.util;
 import com.google.common.base.Preconditions;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 
 public class ItemStacks
@@ -61,11 +62,11 @@ public class ItemStacks
     }
 
 
-    public static boolean isPartOfKit(@NotNull ItemStack item, @NotNull String kitName)
+    public static boolean isPartOfKit(@Nullable ItemStack item, @NotNull String kitName)
     {
-        Preconditions.checkNotNull(item, "item can not be null.");
-        Preconditions.checkNotNull(kitName, "kitName can not be null.");                                                         // NOTE: §b instead of §6
-        return (item.getItemMeta().getLore() != null) && (item.getItemMeta().getLore() != null) &&
+        Preconditions.checkNotNull(kitName, "kitName can not be null.");
+        return (item != null) && (item.getItemMeta().getLore() != null) && (item.getItemMeta().getLore() != null) &&
                 item.getItemMeta().getLore().contains("§b§o" + kitName);
+                                            // NOTE: §b instead of §6
     }
 }

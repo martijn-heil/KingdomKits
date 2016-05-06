@@ -3,6 +3,7 @@ package tk.martijn_heil.kingdomkits.model;
 import com.google.common.base.Preconditions;
 import com.massivecraft.factions.entity.MPlayer;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
@@ -11,8 +12,11 @@ import org.joda.time.DateTime;
 import tk.martijn_heil.kingdomkits.KingdomKits;
 import tk.martijn_heil.kingdomkits.util.ItemStacks;
 import tk.martijn_heil.nincore.api.entity.NinOfflinePlayer;
+import tk.martijn_heil.nincore.api.entity.NinOnlinePlayer;
+import tk.martijn_heil.nincore.api.util.TranslationUtils;
 
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
 
@@ -65,14 +69,7 @@ public class COfflinePlayer
     {
         String playerClassname = data.getString(uuid + ".class");
 
-        if(playerClassname.equals("default"))
-        {
-            return new PlayerClass(config.getString("classes.defaultClass"));
-        }
-        else
-        {
-            return new PlayerClass(playerClassname);
-        }
+        return new PlayerClass(playerClassname);
     }
 
 
@@ -81,8 +78,9 @@ public class COfflinePlayer
      *
      * @param className The class name.
      */
-    public void setPlayerClass(String className)
+    public void setPlayerClass(@NotNull String className)
     {
+        Preconditions.checkNotNull(className);
         this.setPlayerClass(new PlayerClass(className), true);
     }
 
@@ -108,6 +106,12 @@ public class COfflinePlayer
 
     public void setPlayerClass(PlayerClass playerClass, boolean withCoolDown)
     {
+        this.setPlayerClass(playerClass, withCoolDown, withCoolDown);
+    }
+
+
+    public void setPlayerClass(PlayerClass playerClass, boolean withCoolDown, boolean silent)
+    {
         if(this.toOfflinePlayer().isOnline())
         {
             for(ItemStack i : this.toOfflinePlayer().getPlayer().getInventory().getContents())
@@ -128,7 +132,13 @@ public class COfflinePlayer
             data.set(uuid + ".nextPossibleClassSwitchTime", nextPossibleClassSwitchTime.toString());
         }
 
-        if(this.toOfflinePlayer().isOnline()) new COnlinePlayer(this.uuid).givePlayerClassKit();
+        if(this.toOfflinePlayer().isOnline())
+        {
+            new COnlinePlayer(this.uuid).givePlayerClassKit();
+            NinOnlinePlayer np = NinOnlinePlayer.fromPlayer(this.toOfflinePlayer().getPlayer());
+            if(!silent) this.toOfflinePlayer().getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',
+                    TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.mainMsgs", np.getLocale()), "switchedPlayerClass")));
+        }
     }
 
 
@@ -181,15 +191,17 @@ public class COfflinePlayer
      * @param className The class name to check for.
      * @return True if the player can become this class.
      */
-    public boolean canBecomeClass(String className)
+    public boolean canBecomeClass(@NotNull String className)
     {
+        // Noone with any sense would check for a className with null, if null is passed this cleary indicates some
+        // mistake, and we should not fail silently.
+        Preconditions.checkNotNull(className);
 
         // If factions integration isn't enabled, a player can always become this class.
         if(!KingdomKits.useFactions)
         {
             return true;
         }
-
 
         PlayerClass playerClass = new PlayerClass(className);
 
@@ -199,17 +211,14 @@ public class COfflinePlayer
             return true;
         }
 
-
         // Get MPlayer
         MPlayer mPlayer = MPlayer.get(uuid);
-
 
         // If the player is in no faction, he can always can become the class.
         if(!mPlayer.hasFaction())
         {
             return true;
         }
-
 
         List<MPlayer> list = mPlayer.getFaction().getMPlayers();
 
@@ -226,11 +235,8 @@ public class COfflinePlayer
             }
         }
 
-
         float effect = (100/total);
-
         float count = 0;
-
 
         // Count all players in this specific player class.
         for (MPlayer mP : list)
@@ -246,10 +252,7 @@ public class COfflinePlayer
 
         // Calculate percentage
         float currentPercentage = count*100/total;
-
-
         float newPercentage = currentPercentage + effect;
-
 
 
         //int roundedCurrentPercentage = Math.round(currentPercentage);

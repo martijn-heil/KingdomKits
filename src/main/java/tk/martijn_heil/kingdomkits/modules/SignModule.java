@@ -42,9 +42,9 @@ public class SignModule extends CoreModule implements Listener
     public void onPlayerInteract(PlayerInteractEvent e)
     {
         if(e.getClickedBlock() == null) return;
-        if(!(e.getClickedBlock() instanceof Sign)) return;
+        if(!(e.getClickedBlock().getState() instanceof Sign)) return;
 
-        Sign sign = (Sign) e.getClickedBlock();
+        Sign sign = (Sign) e.getClickedBlock().getState();
 
         if(!Signs.isKingdomKitsSign(sign)) return;
 

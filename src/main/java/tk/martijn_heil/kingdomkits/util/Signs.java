@@ -12,7 +12,7 @@ public class Signs
     public static boolean isKingdomKitsSign(@NotNull Sign s)
     {
         Preconditions.checkNotNull(s, "Sign can not be null.");
-        return s.getLine(0).equals(ChatColor.GOLD + "KingdomKits");
+        return s.getLine(0).equals(ChatColor.YELLOW + "[KingdomKits]");
     }
 
 
@@ -21,13 +21,13 @@ public class Signs
     {
         Preconditions.checkNotNull(firstLine, "firstLine can not be null.");
 
-        return firstLine.equals(ChatColor.GOLD + "KingdomKits");
+        return firstLine.equals(ChatColor.YELLOW + "[KingdomKits]");
     }
 
 
     @Contract(pure = true)
     public static String getKingdomKitsPrefix()
     {
-        return ChatColor.GOLD + "KingdomKits";
+        return ChatColor.YELLOW + "[KingdomKits]";
     }
 }

@@ -1,6 +1,7 @@
 package tk.martijn_heil.kingdomkits.model;
 
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import tk.martijn_heil.nincore.api.entity.NinOnlinePlayer;
 import tk.martijn_heil.nincore.api.util.ServerUtils;
@@ -19,6 +20,7 @@ public class COnlinePlayer extends COfflinePlayer
     public COnlinePlayer(UUID uuid)
     {
         super(uuid);
+        this.player = Bukkit.getPlayer(uuid);
     }
 
 
