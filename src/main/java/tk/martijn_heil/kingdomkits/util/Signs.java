@@ -11,7 +11,7 @@ public class Signs
 {
     public static boolean isKingdomKitsSign(@NotNull Sign s)
     {
-        Preconditions.checkNotNull(s, "Sign can not be null.");
+        Preconditions.checkNotNull(s, "s can not be null.");
         return s.getLine(0).equals(ChatColor.YELLOW + "[KingdomKits]");
     }
 

@@ -1,19 +1,16 @@
 package tk.martijn_heil.kingdomkits;
 
 import lombok.Getter;
-import net.mcapi.uuid.ServerRegion;
-import net.mcapi.uuid.UUIDAPI;
 import org.bukkit.Bukkit;
 import org.joda.time.DateTimeZone;
 import tk.martijn_heil.kingdomkits.listeners.FactionEventsListener;
-import tk.martijn_heil.kingdomkits.listeners.PlayerModule;
+import tk.martijn_heil.kingdomkits.modules.PlayerModule;
 import tk.martijn_heil.kingdomkits.modules.*;
 import tk.martijn_heil.nincore.api.Core;
 import tk.martijn_heil.nincore.api.logging.LogColor;
 
 public class KingdomKits extends Core
 {
-    private static final String DEFAULT_SERVER_REGION = "EU";
     private static final int CONFIG_VERSION = 5;
 
     @Getter private static KingdomKits instance;
@@ -89,26 +86,6 @@ public class KingdomKits extends Core
             this.getNinLogger().severe("Invalid player class name: 'default' in configuration file!");
             this.endEnable();
             return;
-        }
-
-        // This handler does not spam the console with request status messages. Furthermore it's exactly the same.
-        this.getNinLogger().info("Setting custom UUIDAPI handler..");
-        UUIDAPI.setHandler(new MainUUIDAPIHandler());
-
-        // UUID API Server region, either EU or US.
-        String apiRegion = this.getConfig().getString("serverRegion").toUpperCase();
-
-        // Check if the UUID API Server region has a valid value.
-        if (!apiRegion.equals("EU") && !apiRegion.equals("US"))
-        {
-            this.getNinLogger().warning("Invalid server region value in configuration file (" + apiRegion + ") change it to either US or EU!");
-            this.getNinLogger().warning("Using default server region ('" + DEFAULT_SERVER_REGION + "') due to previous errors.");
-        }
-        else
-        {
-            // Set UUID API region
-            UUIDAPI.setRegion(ServerRegion.valueOf(apiRegion));
-            this.getNinLogger().config("UUIDAPI Server region set to: " + apiRegion);
         }
 
 

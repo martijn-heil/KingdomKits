@@ -27,7 +27,7 @@ public class KingdomKitsBindCmd extends NinSubCommandExecutor
         Player p = (Player) sender;
 
         // Check if item isn't null
-        if (p.getItemInHand() == null) return;
+        if (p.getInventory().getItemInMainHand() == null) return;
 
         // Check if item isn't already soulbound
         if (ItemStacks.isSoulBound(p.getItemInHand())) throw new ItemAlreadySoulboundException(sender);

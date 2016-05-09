@@ -1,27 +1,26 @@
 package tk.martijn_heil.kingdomkits.subcommands;
 
 
-import tk.martijn_heil.kingdomkits.KingdomKits;
-import tk.martijn_heil.kingdomkits.model.COfflinePlayer;
-import tk.martijn_heil.kingdomkits.model.COnlinePlayer;
-import tk.martijn_heil.kingdomkits.model.PlayerClass;
-import tk.martijn_heil.kingdomkits.exceptions.CoolDownHasNotExpiredException;
-import tk.martijn_heil.kingdomkits.exceptions.PlayerCannotBecomeClassException;
-import tk.martijn_heil.kingdomkits.exceptions.PlayerClassNotFoundException;
-import net.mcapi.uuid.UUIDAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import tk.martijn_heil.kingdomkits.KingdomKits;
+import tk.martijn_heil.kingdomkits.exceptions.CoolDownHasNotExpiredException;
+import tk.martijn_heil.kingdomkits.exceptions.PlayerCannotBecomeClassException;
+import tk.martijn_heil.kingdomkits.exceptions.PlayerClassNotFoundException;
+import tk.martijn_heil.kingdomkits.model.COfflinePlayer;
+import tk.martijn_heil.kingdomkits.model.COnlinePlayer;
+import tk.martijn_heil.kingdomkits.model.PlayerClass;
 import tk.martijn_heil.nincore.api.command.executors.NinSubCommandExecutor;
 import tk.martijn_heil.nincore.api.exceptions.TechnicalException;
 import tk.martijn_heil.nincore.api.exceptions.ValidationException;
 import tk.martijn_heil.nincore.api.exceptions.validationexceptions.AccessDeniedException;
 import tk.martijn_heil.nincore.api.exceptions.validationexceptions.NotEnoughArgumentsException;
 import tk.martijn_heil.nincore.api.exceptions.validationexceptions.PlayerNotFoundException;
-
-import java.util.UUID;
 
 public class KingdomKitsSetClassCmd extends NinSubCommandExecutor
 {
@@ -143,18 +142,17 @@ public class KingdomKitsSetClassCmd extends NinSubCommandExecutor
             // Class validation has passed..
 
             String targetPlayerName = args[1];
-
-            UUID targetPlayerUUID = UUIDAPI.getUUID(targetPlayerName);
+            OfflinePlayer op = Bukkit.getOfflinePlayer(args[1]);
 
             // Player validation..
-            if (targetPlayerUUID == null || !data.getKeys(false).contains(targetPlayerUUID.toString()))
+            if (op == null || !data.getKeys(false).contains(op.getUniqueId().toString()))
             {
                 throw new PlayerNotFoundException(sender);
             }
 
             // Player validation & class validation has passed..
 
-            COfflinePlayer ninOfflinePlayer = new COfflinePlayer(targetPlayerUUID);
+            COfflinePlayer ninOfflinePlayer = new COfflinePlayer(op);
 
 
             // Player can become class validation..

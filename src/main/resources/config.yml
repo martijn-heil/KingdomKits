@@ -27,13 +27,6 @@ useLocalization: true
 enableFactionsIntegration: false
 
 
-# Server region used for UUID API interaction
-# This is used to get the UUID of a player with a given name.
-#
-# Valid values: EU or US
-serverRegion: 'EU'
-
-
 # Enchanting section
 enchanting:
   blacklistedItems: # All items wich cannot be enchanted.

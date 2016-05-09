@@ -2,7 +2,6 @@ package tk.martijn_heil.kingdomkits.modules;
 
 
 import tk.martijn_heil.kingdomkits.KingdomKits;
-import tk.martijn_heil.kingdomkits.subcommands.KingdomKitsBindCmd;
 import tk.martijn_heil.kingdomkits.subcommands.KingdomKitsGetClassCmd;
 import tk.martijn_heil.kingdomkits.subcommands.KingdomKitsListCmd;
 import tk.martijn_heil.kingdomkits.subcommands.KingdomKitsSetClassCmd;
@@ -36,15 +35,15 @@ public class CommandModule extends CoreModule
 
         this.getLogger().info("Creating sub commands..");
 
-        this.getLogger().fine("Creating" + LogColor.HIGHLIGHT + "/kingdomkits bind" + LogColor.RESET + " sub command.");
-        new SubCommandBuilder()
-                .setName("bind")
-                .setRequiredPermission("kingdomkits.bind")
-                .setUseStaticDescription(false)
-                .setLocalizedDescription(new LocalizedString(KingdomKits.class.getClassLoader(), "lang.subCmdMessages", "bind.desc"))
-                .setParentCommand(kk)
-                .setExecutor(new KingdomKitsBindCmd())
-                .construct();
+//        this.getLogger().fine("Creating" + LogColor.HIGHLIGHT + "/kingdomkits bind" + LogColor.RESET + " sub command.");
+//        new SubCommandBuilder()
+//                .setName("bind")
+//                .setRequiredPermission("kingdomkits.bind")
+//                .setUseStaticDescription(false)
+//                .setLocalizedDescription(new LocalizedString(KingdomKits.class.getClassLoader(), "lang.subCmdMessages", "bind.desc"))
+//                .setParentCommand(kk)
+//                .setExecutor(new KingdomKitsBindCmd())
+//                .construct();
 
         this.getLogger().fine("Creating" + LogColor.HIGHLIGHT + "/kingdomkits getclass" + LogColor.RESET + " sub command.");
         new SubCommandBuilder()

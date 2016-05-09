@@ -13,7 +13,7 @@ public class Players
 {
     public static void populateData(@NotNull Player p)
     {
-        Preconditions.checkNotNull(p);
+        Preconditions.checkNotNull(p, "p can not be null.");
 
         FileConfiguration data = KingdomKits.getInstance().getDataManager().getData();
         FileConfiguration config = KingdomKits.getInstance().getConfig();

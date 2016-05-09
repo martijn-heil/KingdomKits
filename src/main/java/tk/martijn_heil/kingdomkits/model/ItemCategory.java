@@ -29,7 +29,7 @@ public class ItemCategory
                         boolean requireFireAllowed
                         )
     {
-        Preconditions.checkNotNull(items);
+        Preconditions.checkNotNull(items, "items can not be null.");
 
         this.useAllowedRequired = useAllowedRequired;
         this.combatAllowedRequired = combatAllowedRequired;

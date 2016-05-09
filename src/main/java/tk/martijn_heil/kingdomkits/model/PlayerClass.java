@@ -1,6 +1,8 @@
 package tk.martijn_heil.kingdomkits.model;
 
+import com.google.common.base.Preconditions;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tk.martijn_heil.kingdomkits.KingdomKits;
 import org.bukkit.configuration.ConfigurationSection;
@@ -20,8 +22,10 @@ public class PlayerClass
      *
      * @param className The player class name.
      */
-    public PlayerClass(String className)
+    public PlayerClass(@NotNull String className)
     {
+        Preconditions.checkNotNull(className, "className can not be null.");
+
         name = className;
         this.classSection = KingdomKits.getInstance().getConfig().getConfigurationSection("classes.classes." + name);
     }

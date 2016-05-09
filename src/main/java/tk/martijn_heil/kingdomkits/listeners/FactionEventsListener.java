@@ -19,7 +19,6 @@ import java.util.ResourceBundle;
 
 public class FactionEventsListener implements Listener
 {
-    public static FileConfiguration data = KingdomKits.getInstance().getDataManager().getData();
     public static FileConfiguration config = KingdomKits.getInstance().getConfig();
 
 

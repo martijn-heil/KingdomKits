@@ -1,4 +1,4 @@
-package tk.martijn_heil.kingdomkits.listeners;
+package tk.martijn_heil.kingdomkits.modules;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -55,8 +55,8 @@ public class PlayerModule extends CoreModule implements Listener
         COnlinePlayer cOnlinePlayer = new COnlinePlayer(e.getPlayer().getUniqueId());
 
 
-        if(KingdomKits.getInstance().getDataManager().getData().getBoolean("classes.enabled") &&
-                KingdomKits.getInstance().getDataManager().getData().getBoolean("classes.giveKitOnRespawn"))
+        if(KingdomKits.getInstance().getConfig().getBoolean("classes.enabled") &&
+                KingdomKits.getInstance().getConfig().getBoolean("classes.giveKitOnRespawn"))
         {
             cOnlinePlayer.givePlayerClassKit();
         }

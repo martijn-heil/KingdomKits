@@ -13,24 +13,23 @@ permissions:
     kingdomkits.*:
         description: Gives access to all kingdomkits permissions & commands.
         children:
-            kingdomkits.bind: true
+#            kingdomkits.bind: true
             kingdomkits.setclass: true
             kingdomkits.setclass.class.*: true
             kingdomkits.setclass.others: true
             kingdomkits.getclass: true
             kingdomkits.getclass.others: true
             kingdomkits.list: true
-            kingdomkits.bypass.factionmembershipchangeevent: true
-            kingdomkits.bypass.changeclasscooldown: true
-            kingdomkits.bypass.elytra: true
+            kingdomkits.bypass.*: true
+
     kingdomkits.bypass.*:
         description: Gives access to all kingdomkits bypass permissions.
         children:
-            kingdomkits.bypass.factionmembershipchangeevent: true
-            kingdomkits.bypass.changeclasscooldown: true
-            kingdomkits.bypass.elytra: true
-    kingdomkits.bind:
-        default: op
+            kingdomkits.bypass.factions.factionmembershipchangeevent: true
+            kingdomkits.bypass.generic.changeclasscooldown: true
+            kingdomkits.bypass.event.disableElytra: true
+#    kingdomkits.bind:
+#        default: op
     kingdomkits.list:
         default: true
     kingdomkits.setclass:
@@ -45,12 +44,13 @@ permissions:
         default: true
 
 
-    kingdomkits.bypass.factionmembershipchangeevent:
+    kingdomkits.bypass.factions.factionmembershipchangeevent:
         default: op
-    kingdomkits.bypass.changeclasscooldown:
+    kingdomkits.bypass.generic.changeclasscooldown:
         default: op
-    kingdomkits.bypass.elytra:
+    kingdomkits.bypass.event.disableElytra:
         default: op
+
 
     kingdomkits.signs.create.switchclass:
         default: op

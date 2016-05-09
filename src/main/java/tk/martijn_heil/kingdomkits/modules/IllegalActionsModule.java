@@ -138,6 +138,7 @@ public class IllegalActionsModule extends CoreModule implements Listener
 
     }
 
+
     @EventHandler
     public void onEntityToggleGlide(EntityToggleGlideEvent e)
     {
@@ -215,7 +216,8 @@ public class IllegalActionsModule extends CoreModule implements Listener
     {
         if(e.getItem() != null)
         {
-            if(this.getCore().getConfig().getList("usage.blacklistedItems").contains(e.getItem().getType().toString()) && (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)))
+            if(this.getCore().getConfig().getList("usage.blacklistedItems").contains(e.getItem().getType().toString()) &&
+                    (e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)))
             {
                 e.setCancelled(true);
                 e.getPlayer().updateInventory();

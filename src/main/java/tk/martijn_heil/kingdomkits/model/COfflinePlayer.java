@@ -112,7 +112,7 @@ public class COfflinePlayer
     {
         if(this.toOfflinePlayer().isOnline())
         {
-            ((COnlinePlayer) this).removePlayerClassKit();
+            new COnlinePlayer(this.toOfflinePlayer().getPlayer()).removePlayerClassKit();
         }
 
         data.set(uuid + ".class", playerClass.getName());
