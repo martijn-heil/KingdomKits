@@ -2,7 +2,9 @@ package tk.martijn_heil.kingdomkits;
 
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.joda.time.DateTimeZone;
+import tk.martijn_heil.kingdomkits.hooks.PlaceHolderApiHook;
 import tk.martijn_heil.kingdomkits.listeners.FactionEventsListener;
 import tk.martijn_heil.kingdomkits.modules.PlayerModule;
 import tk.martijn_heil.kingdomkits.modules.*;
@@ -18,6 +20,9 @@ public class KingdomKits extends Core
 
     // Factions integration
     public static boolean useFactions = false;
+    private static boolean usePlaceholderApi = false;
+
+    private static PlaceHolderApiHook placeHolderApiHook;
 
 
     @Override
@@ -39,6 +44,14 @@ public class KingdomKits extends Core
                 useFactions = true;
                 this.getNinLogger().config(LogColor.HIGHLIGHT + "Activated" + LogColor.RESET + " integration with Factions");
             }
+        }
+
+        // Check if Factions integration should be enabled.
+        if (Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceHolderAPI"))
+        {
+            this.getNinLogger().info("PlaceHolderAPI found, hooking in..");
+            placeHolderApiHook = new PlaceHolderApiHook(this);
+            usePlaceholderApi = true;
         }
 
 
@@ -106,5 +119,18 @@ public class KingdomKits extends Core
     {
         // Save the data file
         this.getDataManager().saveDataFile();
+    }
+
+
+    public static String parseString(Player p, String s)
+    {
+        if(placeHolderApiHook != null)
+        {
+            return placeHolderApiHook.parseString(p, s);
+        }
+        else
+        {
+            return s;
+        }
     }
 }

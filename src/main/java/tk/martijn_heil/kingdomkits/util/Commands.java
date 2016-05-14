@@ -4,6 +4,7 @@ package tk.martijn_heil.kingdomkits.util;
 import com.google.common.base.Preconditions;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import tk.martijn_heil.kingdomkits.KingdomKits;
 
 public class Commands
 {
@@ -16,6 +17,7 @@ public class Commands
         s = s.replace("{player_displayname}", p.getDisplayName());
         s = s.replace("{player_uuid}", p.getUniqueId().toString());
 
+        s = KingdomKits.parseString(p, s);
         return s;
     }
 }

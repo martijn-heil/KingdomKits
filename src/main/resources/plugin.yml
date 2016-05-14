@@ -3,7 +3,7 @@ version: ${project.version}
 author: Ninjoh
 main: tk.martijn_heil.kingdomkits.KingdomKits
 depend: [Essentials]
-softdepend: [Factions,MassiveCore]
+softdepend: [Factions,MassiveCore,PlaceHolderAPI]
 commands:
    kingdomkits:
       aliases: [kk]
