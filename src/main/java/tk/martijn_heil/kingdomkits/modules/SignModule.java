@@ -49,20 +49,29 @@ public class SignModule extends CoreModule implements Listener
         if(!Signs.isKingdomKitsSign(sign)) return;
 
         KingdomKitsSign ks = new KingdomKitsSign(sign);
+        NinOnlinePlayer np = NinOnlinePlayer.fromPlayer(e.getPlayer());
 
         if(ks.getSignActionType().equals(SignActionType.SET_CLASS))
         {
             if(!PlayerClass.PlayerClassExists(ks.getValue()))
             {
-                NinOnlinePlayer np = NinOnlinePlayer.fromPlayer(e.getPlayer());
-
                 np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs",
                         np.getLocale()), "commandError.invalidPlayerClass"));
                 return;
             }
 
             PlayerClass pc = new PlayerClass(ks.getValue());
-            new COnlinePlayer(e.getPlayer().getUniqueId()).setPlayerClass(pc);
+            COnlinePlayer cp = new COnlinePlayer(e.getPlayer());
+
+            if(cp.hasPlayerClassSwitchCoolDownExpired())
+            {
+                cp.setPlayerClass(pc, true);
+            }
+            else
+            {
+                np.sendError(TranslationUtils.getStaticMsg(ResourceBundle.getBundle("lang.errorMsgs",
+                        np.getLocale()), "commandError.coolDownHasNotExpired"));
+            }
         }
     }
 
