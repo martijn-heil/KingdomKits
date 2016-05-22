@@ -4,20 +4,26 @@ package tk.martijn_heil.kingdomkits;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import tk.martijn_heil.kingdomkits.model.ItemCategory;
-import tk.martijn_heil.nincore.api.Core;
 import tk.martijn_heil.nincore.api.CoreModule;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class KingdomKitsConfig extends CoreModule
+public class KingdomKitsConfig extends CoreModule<KingdomKits>
 {
 
 
-    public KingdomKitsConfig(Core core)
+    public KingdomKitsConfig(KingdomKits core)
     {
         super(core);
+    }
+
+
+    @Override
+    public String getName()
+    {
+        return "KingdomKitsConfig";
     }
 
 
