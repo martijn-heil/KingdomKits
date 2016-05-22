@@ -1,6 +1,7 @@
 package tk.martijn_heil.kingdomkits.exceptions;
 
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
@@ -30,6 +31,7 @@ public class CoolDownHasNotExpiredException extends ValidationException
     }
 
 
+    @NotNull
     private static String getMsg(CommandSender commandSender, DateTime nextPossibleClassSwitchTime)
     {
         DateTime start = new DateTime();
@@ -42,6 +44,7 @@ public class CoolDownHasNotExpiredException extends ValidationException
     }
 
 
+    @NotNull
     private static String getMsg(CommandSender commandSender, DateTime nextPossibleClassSwitchTime, String notSelfName)
     {
         DateTime start = new DateTime();

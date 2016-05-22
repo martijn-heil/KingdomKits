@@ -13,6 +13,12 @@ public enum SignActionType
 
     @Getter String text;
 
+
+    /**
+     *
+     * @param text The text for this action.
+     * @throws NullPointerException if text is null.
+     */
     SignActionType(@NotNull String text)
     {
         Preconditions.checkNotNull(text, "text can not be null.");

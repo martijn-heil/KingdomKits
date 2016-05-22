@@ -11,6 +11,12 @@ import tk.martijn_heil.kingdomkits.model.PlayerClass;
 
 public class Players
 {
+    /**
+     * Populate a player's data.
+     *
+     * @param p The player to populate data for.
+     * @throws NullPointerException if p is null.
+     */
     public static void populateData(@NotNull Player p)
     {
         Preconditions.checkNotNull(p, "p can not be null.");
