@@ -331,13 +331,6 @@ public class IllegalActionsModule extends CoreModule implements Listener
 
 
 
-
-
-
-
-
-
-
     @EventHandler
     public void onUse(PlayerInteractEvent e)
     {
