@@ -341,9 +341,11 @@ public class IllegalActionsModule extends CoreModule implements Listener
     @EventHandler
     public void onUse(PlayerInteractEvent e)
     {
+        if(!e.hasItem()) return;
+
         ItemCategory cat = ItemCategories.getCategory(e.getMaterial());
 
-        if(cat != null && cat.isUseAllowedRequired())
+        if(cat != null && cat.isUseAllowedRequired() && !ItemStacks.isUseAllowed(e.getItem()))
         {
             e.setCancelled(true);
 
