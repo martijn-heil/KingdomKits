@@ -15,8 +15,8 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import tk.martijn_heil.kingdomkits.KingdomKits;
 import tk.martijn_heil.kingdomkits.util.ItemStacks;
-import tk.martijn_heil.nincore.api.Core;
 import tk.martijn_heil.nincore.api.CoreModule;
 import tk.martijn_heil.nincore.api.entity.NinOnlinePlayer;
 import tk.martijn_heil.nincore.api.util.TranslationUtils;
@@ -30,10 +30,10 @@ import java.util.ResourceBundle;
  * Handles soulbound items, these items cannot be lost and are bound to the player.
  * soulbound items do not have any properties except for being bound to a player.
  */
-public class SoulboundItemsModule extends CoreModule implements Listener
+public class SoulboundItemsModule extends CoreModule<KingdomKits> implements Listener
 {
 
-    public SoulboundItemsModule(Core core)
+    public SoulboundItemsModule(KingdomKits core)
     {
         super(core);
     }
@@ -44,6 +44,13 @@ public class SoulboundItemsModule extends CoreModule implements Listener
     {
         this.getLogger().info("Registering event handlers..");
         Bukkit.getPluginManager().registerEvents(this, this.getCore());
+    }
+
+
+    @Override
+    public String getName()
+    {
+        return "SoulboundItemsModule";
     }
 
 

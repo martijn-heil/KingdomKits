@@ -6,12 +6,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import tk.martijn_heil.kingdomkits.KingdomKits;
 import tk.martijn_heil.kingdomkits.KingdomKitsSign;
 import tk.martijn_heil.kingdomkits.model.COnlinePlayer;
 import tk.martijn_heil.kingdomkits.model.PlayerClass;
 import tk.martijn_heil.kingdomkits.util.SignActionType;
 import tk.martijn_heil.kingdomkits.util.Signs;
-import tk.martijn_heil.nincore.api.Core;
 import tk.martijn_heil.nincore.api.CoreModule;
 import tk.martijn_heil.nincore.api.entity.NinOnlinePlayer;
 import tk.martijn_heil.nincore.api.util.TranslationUtils;
@@ -21,10 +21,10 @@ import java.util.ResourceBundle;
 /**
  * Handles all sign related operations and commands.
  */
-public class SignModule extends CoreModule implements Listener
+public class SignModule extends CoreModule<KingdomKits> implements Listener
 {
 
-    public SignModule(Core core)
+    public SignModule(KingdomKits core)
     {
         super(core);
     }
@@ -35,6 +35,13 @@ public class SignModule extends CoreModule implements Listener
     {
         this.getLogger().info("Registering event handlers..");
         Bukkit.getPluginManager().registerEvents(this, this.getCore());
+    }
+
+
+    @Override
+    public String getName()
+    {
+        return "SignModule";
     }
 
 

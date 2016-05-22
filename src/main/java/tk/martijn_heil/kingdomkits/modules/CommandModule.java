@@ -5,7 +5,6 @@ import tk.martijn_heil.kingdomkits.KingdomKits;
 import tk.martijn_heil.kingdomkits.subcommands.KingdomKitsGetClassCmd;
 import tk.martijn_heil.kingdomkits.subcommands.KingdomKitsListCmd;
 import tk.martijn_heil.kingdomkits.subcommands.KingdomKitsSetClassCmd;
-import tk.martijn_heil.nincore.api.Core;
 import tk.martijn_heil.nincore.api.CoreModule;
 import tk.martijn_heil.nincore.api.command.NinCommand;
 import tk.martijn_heil.nincore.api.command.builders.CommandBuilder;
@@ -13,10 +12,10 @@ import tk.martijn_heil.nincore.api.command.builders.SubCommandBuilder;
 import tk.martijn_heil.nincore.api.localization.LocalizedString;
 import tk.martijn_heil.nincore.api.logging.LogColor;
 
-public class CommandModule extends CoreModule
+public class CommandModule extends CoreModule<KingdomKits>
 {
 
-    public CommandModule(Core core)
+    public CommandModule(KingdomKits core)
     {
         super(core);
     }
@@ -76,5 +75,12 @@ public class CommandModule extends CoreModule
                 .setParentCommand(kk)
                 .setExecutor(new KingdomKitsSetClassCmd())
                 .construct();
+    }
+
+
+    @Override
+    public String getName()
+    {
+        return "CommandModule";
     }
 }

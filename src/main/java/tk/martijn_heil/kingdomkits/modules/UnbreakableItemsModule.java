@@ -5,18 +5,18 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemDamageEvent;
+import tk.martijn_heil.kingdomkits.KingdomKits;
 import tk.martijn_heil.kingdomkits.util.ItemStacks;
-import tk.martijn_heil.nincore.api.Core;
 import tk.martijn_heil.nincore.api.CoreModule;
 
 
 /**
  * Handles unbreakable items.
  */
-public class UnbreakableItemsModule extends CoreModule implements Listener
+public class UnbreakableItemsModule extends CoreModule<KingdomKits> implements Listener
 {
 
-    public UnbreakableItemsModule(Core core)
+    public UnbreakableItemsModule(KingdomKits core)
     {
         super(core);
     }
@@ -27,6 +27,13 @@ public class UnbreakableItemsModule extends CoreModule implements Listener
     {
         this.getLogger().info("Registering event handlers..");
         Bukkit.getPluginManager().registerEvents(this, this.getCore());
+    }
+
+
+    @Override
+    public String getName()
+    {
+        return "UnbreakableItemsModule";
     }
 
 

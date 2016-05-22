@@ -23,10 +23,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionType;
+import tk.martijn_heil.kingdomkits.KingdomKits;
 import tk.martijn_heil.kingdomkits.model.ItemCategory;
 import tk.martijn_heil.kingdomkits.util.ItemCategories;
 import tk.martijn_heil.kingdomkits.util.ItemStacks;
-import tk.martijn_heil.nincore.api.Core;
 import tk.martijn_heil.nincore.api.CoreModule;
 import tk.martijn_heil.nincore.api.entity.NinOnlinePlayer;
 import tk.martijn_heil.nincore.api.events.ArmorEquipEvent;
@@ -41,10 +41,10 @@ import java.util.ResourceBundle;
  * Handles all illegal actions.
  * This may be stuff like disallowing elytra flight, disallowing using enderpearls, or prevent fighting with certain weapons.
  */
-public class IllegalActionsModule extends CoreModule implements Listener
+public class IllegalActionsModule extends CoreModule<KingdomKits> implements Listener
 {
 
-    public IllegalActionsModule(Core core)
+    public IllegalActionsModule(KingdomKits core)
     {
         super(core);
     }
@@ -55,6 +55,13 @@ public class IllegalActionsModule extends CoreModule implements Listener
     {
         this.getLogger().info("Registering event handlers..");
         Bukkit.getPluginManager().registerEvents(this, this.getCore());
+    }
+
+
+    @Override
+    public String getName()
+    {
+        return "IllegalActionsModule";
     }
 
 

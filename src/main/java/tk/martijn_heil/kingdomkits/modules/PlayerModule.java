@@ -10,16 +10,22 @@ import tk.martijn_heil.kingdomkits.KingdomKits;
 import tk.martijn_heil.kingdomkits.model.COnlinePlayer;
 import tk.martijn_heil.kingdomkits.util.Commands;
 import tk.martijn_heil.kingdomkits.util.Players;
-import tk.martijn_heil.nincore.api.Core;
 import tk.martijn_heil.nincore.api.CoreModule;
 import tk.martijn_heil.nincore.api.util.ServerUtils;
 
 
-public class PlayerModule extends CoreModule implements Listener
+public class PlayerModule extends CoreModule<KingdomKits> implements Listener
 {
-    public PlayerModule(@NotNull Core core)
+    public PlayerModule(@NotNull KingdomKits core)
     {
         super(core);
+    }
+
+
+    @Override
+    public String getName()
+    {
+        return "PlayerModule";
     }
 
 
