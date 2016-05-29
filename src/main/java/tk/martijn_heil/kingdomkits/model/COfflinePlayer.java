@@ -165,13 +165,14 @@ public class COfflinePlayer
      *
      * @return True if the coolDown has expired
      */
-    public boolean hasPlayerClassSwitchCoolDownExpired() {
-
+    public boolean hasPlayerClassSwitchCoolDownExpired()
+    {
         String nextPossibleClassSwitchTime = data.getString(uuid + ".nextPossibleClassSwitchTime");
-        {
-            return nextPossibleClassSwitchTime != null && new DateTime(nextPossibleClassSwitchTime).isBeforeNow();
-        }
+
+        return nextPossibleClassSwitchTime != null && new DateTime(nextPossibleClassSwitchTime).isBeforeNow();
     }
+
+
     /**
      * Get the next possible time to switch player class for this player.
      *
