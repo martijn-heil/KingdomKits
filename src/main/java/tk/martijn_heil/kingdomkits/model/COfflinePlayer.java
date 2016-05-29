@@ -80,6 +80,7 @@ public class COfflinePlayer
     {
         Preconditions.checkNotNull(className);
         this.setPlayerClass(new PlayerClass(className), true);
+
     }
 
 
@@ -164,13 +165,13 @@ public class COfflinePlayer
      *
      * @return True if the coolDown has expired
      */
-    public boolean hasPlayerClassSwitchCoolDownExpired()
-    {
-        DateTime nextPossibleClassSwitchTime = new DateTime(data.getString(uuid + ".nextPossibleClassSwitchTime"));
-        return nextPossibleClassSwitchTime.isBeforeNow();
+    public boolean hasPlayerClassSwitchCoolDownExpired() {
+
+        String nextPossibleClassSwitchTime = data.getString(uuid + ".nextPossibleClassSwitchTime");
+        {
+            return nextPossibleClassSwitchTime != null && new DateTime(nextPossibleClassSwitchTime).isBeforeNow();
+        }
     }
-
-
     /**
      * Get the next possible time to switch player class for this player.
      *
