@@ -1,3 +1,7 @@
+# Warning
+This plugin is abandoned, see [KingdomEssentials](https://github.com/martijn-heil/KingdomEssentials) for it's continuation.
+
+
 #### Commands:
 All sub commands below are sub command of the command */kingdomkits* (Alias: */kk*)
 
